@@ -32,11 +32,16 @@ interface MacState {
   onTop: string;
   fs: string;
   brightness: number;
+  volume: number;
+  wifi: boolean;
+  bluetooth: boolean;
+  airdrop: boolean;
   pointerPos: { x: number; y: number };
   nightShift: boolean;
   scale: number;
   notification: Notification;
   wallpaper: string; // Store asset path or key
+  darkTheme: boolean;
 
   // OnOff equivalents (Globals)
   ccOpen: boolean;
@@ -45,6 +50,8 @@ interface MacState {
   folderRightClickMenu: boolean;
   notificationOn: boolean;
   launchPadOn: boolean;
+  spotlightOpen: boolean;
+  activeMenu: string;
 
   // Apps equivalents
   apps: AppState[];
@@ -52,11 +59,16 @@ interface MacState {
 
   // Actions
   setBrightness: (val: number) => void;
+  setVolume: (val: number) => void;
+  toggleWifi: () => void;
+  toggleBluetooth: () => void;
+  toggleAirdrop: () => void;
   setPos: (x: number, y: number) => void;
   setNotification: (notif: Notification) => void;
   toggleNightShift: () => void;
   changeScale: (scale: number) => void;
   setWallpaper: (wallpaper: string) => void;
+  toggleDarkTheme: () => void;
 
   toggleCc: () => void;
   offCc: () => void;
@@ -68,6 +80,9 @@ interface MacState {
   offFRCM: () => void;
   onNotifications: () => void;
   offNotifications: () => void;
+  toggleSpotlight: () => void;
+  offSpotlight: () => void;
+  setActiveMenu: (menu: string) => void;
 
   openApp: (id: AppId) => void;
   closeApp: (id: AppId) => void;
@@ -109,6 +124,10 @@ export const useStore = create<MacState>((set, get) => ({
   onTop: "Finder",
   fs: "",
   brightness: 95.98,
+  volume: 80,
+  wifi: true,
+  bluetooth: true,
+  airdrop: true,
   pointerPos: { x: 0, y: 0 },
   nightShift: false,
   scale: 1,
@@ -119,16 +138,23 @@ export const useStore = create<MacState>((set, get) => ({
     head: "Welcome"
   },
   wallpaper: 'monterey',
+  darkTheme: false,
   ccOpen: false,
   fsAni: false,
   rightClickMenu: false,
   folderRightClickMenu: false,
   notificationOn: false,
   launchPadOn: false,
+  spotlightOpen: false,
+  activeMenu: '',
   apps: initialApps,
   activeApps: ['finder'],
 
   setBrightness: (val) => set({ brightness: val }),
+  setVolume: (val) => set({ volume: val }),
+  toggleWifi: () => set((state) => ({ wifi: !state.wifi })),
+  toggleBluetooth: () => set((state) => ({ bluetooth: !state.bluetooth })),
+  toggleAirdrop: () => set((state) => ({ airdrop: !state.airdrop })),
   setPos: (x, y) => set({ pointerPos: { x, y } }),
   setNotification: (notif) => set({ notification: notif }),
   toggleNightShift: () => set((state) => ({ nightShift: !state.nightShift })),
@@ -140,6 +166,7 @@ export const useStore = create<MacState>((set, get) => ({
     set({ scale: newScale });
   },
   setWallpaper: (wallpaper) => set({ wallpaper }),
+  toggleDarkTheme: () => set((state) => ({ darkTheme: !state.darkTheme })),
 
   toggleCc: () => set((state) => ({ ccOpen: !state.ccOpen })),
   offCc: () => set({ ccOpen: false }),
@@ -151,6 +178,9 @@ export const useStore = create<MacState>((set, get) => ({
   offFRCM: () => set({ folderRightClickMenu: false }),
   onNotifications: () => set({ notificationOn: true }),
   offNotifications: () => set({ notificationOn: false }),
+  toggleSpotlight: () => set((state) => ({ spotlightOpen: !state.spotlightOpen })),
+  offSpotlight: () => set({ spotlightOpen: false }),
+  setActiveMenu: (menu) => set({ activeMenu: menu }),
 
   openApp: (id) => set((state) => {
     const isActive = state.activeApps.includes(id);
