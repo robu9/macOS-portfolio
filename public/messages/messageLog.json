@@ -2,46 +2,28 @@
   {
     "messages": {
       "sender": [
-        "Hey, Robu",
-        "I received very good feedback about your workshop.",
-        "Yes..",
-        "The workshop was designed to learn how to use Flutter to develop high-quality, interactive mobile applications both for iOS and Android devices. You taught our students coding using Dart and to build beautiful, fast, native-quality Android apps.",
-        "I got some feedback from students.. Sharing here",
-        "Building app with Flutter was very easy and fun, the resource person made it simple",
-        "App Development in Flutter was amazing, it's cross-platform, and very well optimized! Robu made the session very interesting with his knowledge in flutter... Workshops like this will create great impact in student community",
-        "A very worthwhile and very timely workshop for myself.. Great experience",
-        "The workshop exceeded my expectations and was entirely relevant",
-        "The resource person had great facilitating skills, and was very helpful in improving my skills in building an app.",
-        "Thank you for a nice workshop. He had great presentation style with lots of opportunities to interact about creating apps.",
-        "Interactive and thought provoking",
-        " A very informative and valuable day in enhancing my technical skill",
-        "",
-        "Your session was very well organized. I'll definitely recommend your session to anyone interested in learning more about Flutter."
+        "Hey Robu, I reviewed your portfolio update.",
+        "The macOS interactions feel clean and professional.",
+        "Are you handling this as a full stack project now?",
+        "Great. Did you add API validation and request limits?",
+        "I also saw your AI and ML section draft.",
+        "Can you include one deployed model pipeline example?"
       ],
       "me": [
-        "Hello, Sir",
-        "Really?",
+        "Thanks Priya.",
         "",
-        "Thank you so much sir...",
-        "I would love to hear it, sir",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "",
-        "Awww.. This means a lot...",
-        "Students were also really cooperative and interactive. I loved them",
-        "Thank you sir. I would love to share my knowledge."
+        "Yes, frontend is Next.js and backend APIs are Node with PostgreSQL.",
+        "Yes, using schema validation and rate limiting at the API layer.",
+        "I am revising that section to focus on production AI use cases.",
+        "Yes, I will show data prep, training, evaluation, and deployment."
       ]
     },
-    "senderName": "Dr. Joby PP",
-    "senderPhoto": "https://media-exp1.licdn.com/dms/image/C4D03AQHWxdYlwY-WAg/profile-displayphoto-shrink_400_400/0/1516879355636?e=1674086400&v=beta&t=Aq2f4G94nPWMGxcdDsx_MsbMjZgkHXcxg_yo2GhBRs8",
-    "profileLink": "https://www.linkedin.com/in/dr-joby-p-p-b089391b/",
+    "senderName": "Priya Menon",
+    "senderPhoto": "",
+    "profileLink": "https://www.linkedin.com/",
     "dates": [
-      "2022-06-25 20:10:00.137",
-      "2022-06-29 16:32:00.137"
+      "2026-02-10 09:40:00.000",
+      "2026-02-12 18:25:00.000"
     ],
     "dateStops": [
       0,
@@ -51,27 +33,23 @@
   {
     "messages": {
       "sender": [
-        "Helloo Robu",
-        "Your Flutter session was very informative.",
-        "Everyone learned a lot about the different aspects of Flutter and how it can be used to create amazing apps.",
-        "And the important thing to say is that the session was very well organized and you were very knowledgeable.",
-        "I would definitely recommend your session to my friends from other colleges",
-        "All the best"
+        "Hi Robu, the backend architecture notes were strong.",
+        "I liked your service split for auth, portfolio, and analytics.",
+        "Are you using Redis for cache and async jobs?",
+        "Please add one note on observability too."
       ],
       "me": [
-        "Hello, Siji Sir",
-        "",
-        "Soo happy to hear that, sir",
-        "",
-        "Thank you, sir..",
-        "That is so nice of you ❤️"
+        "Thanks Rahul.",
+        "I designed it to keep scaling simple.",
+        "Yes, Redis handles cache plus queue workers for background tasks.",
+        "Good point. I will include logging, traces, and alerting."
       ]
     },
-    "senderName": "Dr. Siji Cyriac",
+    "senderName": "Rahul Nair",
     "senderPhoto": "",
-    "profileLink": "https://www.linkedin.com/in/siji-cyriac-97b2b1169/",
+    "profileLink": "https://www.linkedin.com/",
     "dates": [
-      "2021-10-31 10:12:00.137"
+      "2026-01-27 11:12:00.000"
     ],
     "dateStops": [
       0
@@ -80,91 +58,48 @@
   {
     "messages": {
       "sender": [
-        "Hello Robu",
-        "Your session on Flutter was very informative.",
-        "I came to know that the students were trained well to develop apps.",
-        "You very well handled about 40 students for 3 day workshop held under the auspices of IEDC, Mar Augustinos College, Ramapuram",
-        "See you soon"
+        "Your AIML roadmap looked practical.",
+        "I liked the idea of using vector search with retrieval.",
+        "Can you compare classical ML and LLM based solutions in one project writeup?",
+        "That would help recruiters understand your decision process."
       ],
       "me": [
-        "Hello, Sir",
-        "Thank you sir",
-        "",
-        "I am really to happy to know that...",
-        "Sure ❤️"
+        "Thanks Aisha.",
+        "I am testing retrieval quality with hybrid search.",
+        "Yes, I will add metrics, latency, and cost tradeoffs in the writeup.",
+        "Exactly. I want the projects to show engineering reasoning, not just demos."
       ]
     },
-    "senderName": "Abhilash V Pandiankal",
+    "senderName": "Aisha Khan",
     "senderPhoto": "",
-    "profileLink": "https://maraugusthinosecollege.org/electronics/faculty-of-electronics/abhilash-v/",
+    "profileLink": "https://www.linkedin.com/",
     "dates": [
-      "2021-10-31 10:12:00.137"
+      "2026-02-02 14:05:00.000",
+      "2026-02-03 09:31:00.000"
     ],
     "dateStops": [
-      0
+      0,
+      2
     ]
   },
   {
     "messages": {
       "sender": [
-        "Good Evening, Robu",
-        "You managed the flutter workshop in a beautiful way.",
-        "Your dedication to repeat even the simple topic was awesome.",
-        "Everyone really enjoyed the session.",
-        "",
-        "Will see you again, Robu"
+        "Morning Robu. How is the MLOps workflow going?",
+        "Did you finish CI checks for model drift alerts?",
+        "Also add automated rollback if quality drops under threshold."
       ],
       "me": [
-        "Good Evening, Sir",
-        "Thank you, sir",
-        "",
-        "Thanks to you for the opportunity,sir..",
-        "Even I also grew under your mentorship at IEDC Startup Bootcamp.",
-        "Sure sir"
+        "Morning Elena.",
+        "Yes, drift checks run nightly with scheduled retraining triggers.",
+        "Rollback automation is next, I am wiring it with deployment health gates."
       ]
     },
-    "senderName": "Sarju S",
-    "senderPhoto": "https://media-exp1.licdn.com/dms/image/D5603AQE1E85euwIiIw/profile-displayphoto-shrink_400_400/0/1668587612953?e=1674086400&v=beta&t=NDDRnwb0B15ZY_lRto-e9-bx7VlO6vNpah5K0-d2CtA",
-    "profileLink": "https://www.linkedin.com/in/sarju-s/",
-    "dates": [
-      "2021-01-17 19:22:00.137"
-    ],
-    "dateStops": [
-      0
-    ]
-  },
-  {
-    "messages": {
-      "sender": [
-        "Dear Robu",
-        "I saw your work.",
-        "DREAM is a good example of how you spend your extra time.",
-        "",
-        "",
-        "Yeah, I saw that.",
-        "You're a person with strong mindset, is very committed and always passionate about profession and tech.",
-        "You are very cool and enthusiastic.",
-        "I am very proud of you my dear student.",
-        "Wishing you all success"
-      ],
-      "me": [
-        "Hello Ma'am",
-        "",
-        "Thank you, ma'am.",
-        "Did you use the gradient maker in DREAM?",
-        "Could help in creating CSS backgrounds",
-        "",
-        "",
-        "",
-        "Thank you Angitha ma'am❤",
-        "It's really a pleasure to hear it from you."
-      ]
-    },
-    "senderName": "Angitha George",
+    "senderName": "Elena Thomas",
     "senderPhoto": "",
-    "profileLink": "https://www.linkedin.com/in/angitha-george-4a4a751a5/",
+    "profileLink": "https://www.linkedin.com/",
     "dates": [
-      "2022-11-01 19:02:00.137"
+      "2026-02-14 08:15:00.000"
     ],
     "dateStops": [
       0
@@ -173,35 +108,23 @@
   {
     "messages": {
       "sender": [
-        "Hey",
-        "Mahn, I just came across your DREAM web app.",
-        "As a graphic designer, I can use the platform to enhance my work with a theme.",
-        "",
-        "",
-        "That really worked.",
-        "It is really user-friendly and easy-to-use.",
-        "I might need DREAM in a daily basis",
-        "Designers will definitely use it",
-        "DREAM is a good choice for novices.."
+        "Hey, saw your new project notes.",
+        "The full stack section now reads much stronger than before.",
+        "I like that you mention SQL tuning, indexing, and API contracts.",
+        "The AI section is good too, especially model evaluation details."
       ],
       "me": [
-        "Hello Arun..",
-        "",
-        "That was my only aim.",
-        "Even I was finding it hard to find the colors from an image.",
-        "That's when I thought why not create a light web app for that.",
-        "",
-        "",
-        "",
-        "Thank you, bro..",
-        "For a better tomorrow 🥂"
+        "Thanks Arun.",
+        "I wanted the portfolio to represent real engineering work.",
+        "Exactly, I am showing backend depth and production tradeoffs.",
+        "Great. I will add one more NLP case study this week."
       ]
     },
     "senderName": "Arun Alex",
-    "senderPhoto": "https://media-exp1.licdn.com/dms/image/C4D03AQF8KA6fAzhPEQ/profile-displayphoto-shrink_400_400/0/1655491317779?e=1674086400&v=beta&t=6aQ38gv2bqmJqta-HDoy6XPnbBru0DwXcq0wzKzM3ms",
-    "profileLink": "https://www.linkedin.com/in/arun-alex-6b9a24191/",
+    "senderPhoto": "",
+    "profileLink": "https://www.linkedin.com/",
     "dates": [
-      "2022-10-31 18:22:00.137"
+      "2026-02-18 19:20:00.000"
     ],
     "dateStops": [
       0

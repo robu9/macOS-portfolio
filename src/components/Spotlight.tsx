@@ -13,7 +13,6 @@ const SPOTLIGHT_APPS: SpotlightApp[] = [
     { id: 'safari', name: 'Safari' },
     { id: 'messages', name: 'Messages' },
     { id: 'maps', name: 'Maps' },
-    { id: 'spotify', name: 'Spotify' },
     { id: 'terminal', name: 'Terminal' },
     { id: 'vscode', name: 'Visual Studio Code' },
     { id: 'photos', name: 'Photos' },

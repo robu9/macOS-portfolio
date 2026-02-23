@@ -17,7 +17,6 @@ const LAUNCHPAD_APPS: LaunchpadItem[] = [
     { id: 'safari', name: 'Safari', icon: '/apps/safari.png' },
     { id: 'messages', name: 'Messages', icon: '/apps/messages.png' },
     { id: 'maps', name: 'Maps', icon: '/apps/maps.png' },
-    { id: 'spotify', name: 'Spotify', icon: '/apps/spotify.png' },
     { id: 'terminal', name: 'Terminal', icon: '/apps/terminal.png' },
     { id: 'vscode', name: 'Visual Studio Code', icon: '/apps/visual studio code.png' },
     { id: 'photos', name: 'Photos', icon: '/apps/photos.png' },

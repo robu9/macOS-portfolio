@@ -50,7 +50,6 @@ export const Finder = () => {
                     { id: 'safari', name: 'Safari', icon: '/apps/safari.png' },
                     { id: 'messages', name: 'Messages', icon: '/apps/messages.png' },
                     { id: 'maps', name: 'Maps', icon: '/apps/maps.png' },
-                    { id: 'spotify', name: 'Spotify', icon: '/apps/spotify.png' },
                     { id: 'terminal', name: 'Terminal', icon: '/apps/terminal.png' },
                     { id: 'vscode', name: 'Visual Studio Code', icon: '/apps/visual studio code.png' },
                     { id: 'photos', name: 'Photos', icon: '/apps/photos.png' },
@@ -126,27 +125,7 @@ export const Finder = () => {
                 );
             }
             case 'Music': {
-                const tracks = [{ name: 'Close Eyes.mp3', artist: 'DVRST' }];
-                const filteredTracks = tracks.filter(
-                    (track) =>
-                        track.name.toLowerCase().includes(normalizedQuery) ||
-                        track.artist.toLowerCase().includes(normalizedQuery)
-                );
-                return renderCollection(
-                    filteredTracks.length > 0 ? (
-                        filteredTracks.map((track) => (
-                            <MusicTrackIcon
-                                key={track.name}
-                                name={track.name}
-                                artist={track.artist}
-                                viewMode={viewMode}
-                                onClick={() => handleAppClick('spotify')}
-                            />
-                        ))
-                    ) : (
-                        <NoResults />
-                    )
-                );
+                return renderCollection(<NoResults />);
             }
             case 'Pictures': {
                 const filteredPhotos = PHOTO_ASSETS.filter(
@@ -172,9 +151,9 @@ export const Finder = () => {
                 );
             }
             case 'Desktop':
-                return renderEmpty('Desktop');
+                return renderCollection(<NoResults />);
             case 'Movies':
-                return renderEmpty('Movies');
+                return renderCollection(<NoResults />);
             default:
                 return renderEmpty(selected);
         }
@@ -363,32 +342,6 @@ const ImageIcon = ({ name, src, onDoubleClick, viewMode }: { name: string, src: 
             <img src={src} alt={name} className="w-8 h-8 object-cover rounded-md shadow-sm shrink-0" onError={(e) => e.currentTarget.style.display = 'none'} />
             <span className="text-sm text-gray-800 dark:text-gray-200 truncate">{name}</span>
         </div>
-    )
-);
-
-const MusicTrackIcon = ({ name, artist, onClick, viewMode }: { name: string, artist: string, onClick: () => void, viewMode: ViewMode }) => (
-    viewMode === 'grid' ? (
-        <button
-            onClick={onClick}
-            className="flex flex-col items-center gap-1 group outline-none cursor-pointer py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
-        >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/apps/spotify.png" alt={name} className="w-14 h-14 object-contain drop-shadow-md" />
-            <span className="text-[11px] text-gray-800 dark:text-gray-200 text-center leading-tight truncate w-full px-1">{name}</span>
-            <span className="text-[10px] text-gray-500 dark:text-gray-400">{artist}</span>
-        </button>
-    ) : (
-        <button
-            onClick={onClick}
-            className="flex items-center gap-3 group outline-none cursor-pointer px-3 py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors text-left"
-        >
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img src="/apps/spotify.png" alt={name} className="w-8 h-8 object-contain drop-shadow-md shrink-0" />
-            <div className="min-w-0">
-                <span className="text-sm text-gray-800 dark:text-gray-200 truncate block">{name}</span>
-                <span className="text-[11px] text-gray-500 dark:text-gray-400 block">{artist}</span>
-            </div>
-        </button>
     )
 );
 

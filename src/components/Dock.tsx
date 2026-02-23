@@ -19,7 +19,6 @@ const DOCK_ITEMS: DockItem[] = [
     { id: 'maps', name: 'Maps', icon: '/apps/maps.png' },
     { id: 'contacts', name: 'Contacts', icon: '/apps/contacts.png' },
     { id: 'about', name: 'About Me', icon: '/apps/about me.png' },
-    { id: 'spotify', name: 'Spotify', icon: '/apps/spotify.png' },
     { id: 'terminal', name: 'Terminal', icon: '/apps/terminal.png' },
     { id: 'vscode', name: 'Visual Studio Code', icon: '/apps/visual studio code.png' },
     { id: 'photos', name: 'Photos', icon: '/apps/photos.png' },

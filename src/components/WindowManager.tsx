@@ -5,7 +5,6 @@ import { useStore, AppId } from '../store/useStore';
 import { Safari } from './apps/Safari';
 import { VSCode } from './apps/VSCode';
 import { Terminal } from './apps/Terminal';
-import { Spotify } from './apps/Spotify';
 import { Finder } from './apps/Finder';
 import { AboutMe } from './apps/AboutMe';
 import { Calendar } from './apps/Calendar';
@@ -24,7 +23,6 @@ export const WindowManager = () => {
         'finder',
         'safari',
         'vscode',
-        'spotify',
         'photos',
         'maps',
         'contacts',
@@ -49,7 +47,6 @@ export const WindowManager = () => {
                         {app.id === 'safari' && <Safari />}
                         {app.id === 'vscode' && <VSCode />}
                         {app.id === 'terminal' && <Terminal />}
-                        {app.id === 'spotify' && <Spotify />}
                         {app.id === 'photos' && <Photos />}
                         {app.id === 'maps' && <Maps />}
                         {app.id === 'contacts' && <Contacts />}
@@ -134,7 +131,7 @@ const WindowContainer = ({ id, children }: { id: AppId, children: React.ReactNod
                     <span className="opacity-0 group-hover:opacity-100 text-[10px] text-[#006500] font-bold leading-none select-none relative -top-[1px]">+</span>
                 </button>
             </div>
-            <div className="flex-1 w-full relative overflow-hidden bg-white dark:bg-[#1e1e1e]">
+            <div className="flex-1 w-full relative overflow-hidden">
                 {children}
             </div>
         </motion.div>

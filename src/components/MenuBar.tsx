@@ -9,14 +9,12 @@ type NavigatorWithBattery = Navigator & {
 
 interface BatteryManagerLike extends EventTarget {
     level: number;
-    charging: boolean;
 }
 
 export const MenuBar = () => {
     const { onTop, wifi, bluetooth, toggleCc, toggleSpotlight, activeMenu, setActiveMenu } = useStore();
     const [time, setTime] = useState('');
     const [batteryLevel, setBatteryLevel] = useState(1);
-    const [isCharging, setIsCharging] = useState(false);
 
     useEffect(() => {
         const updateTime = () => {
@@ -39,7 +37,6 @@ export const MenuBar = () => {
         const syncBattery = () => {
             if (!batteryManager) return;
             setBatteryLevel(Math.max(0, Math.min(1, batteryManager.level)));
-            setIsCharging(batteryManager.charging);
         };
 
         nav.getBattery()
@@ -47,7 +44,6 @@ export const MenuBar = () => {
                 batteryManager = battery;
                 syncBattery();
                 battery.addEventListener('levelchange', syncBattery);
-                battery.addEventListener('chargingchange', syncBattery);
             })
             .catch(() => {
                 // Keep fallback battery state when the API is unavailable or blocked.
@@ -56,7 +52,6 @@ export const MenuBar = () => {
         return () => {
             if (!batteryManager) return;
             batteryManager.removeEventListener('levelchange', syncBattery);
-            batteryManager.removeEventListener('chargingchange', syncBattery);
         };
     }, []);
 
@@ -88,7 +83,7 @@ export const MenuBar = () => {
 
             <div className="flex items-center space-x-4">
                 <span className="cursor-default pl-2">{batteryPercent}%</span>
-                <BatteryPill percentage={batteryPercent} charging={isCharging} />
+                <BatteryPill percentage={batteryPercent} />
                 {wifi && <Wifi className="w-[15px] h-[15px]" />}
                 {bluetooth && <Bluetooth className="w-[15px] h-[15px]" />}
                 <Search
@@ -105,7 +100,7 @@ export const MenuBar = () => {
     );
 };
 
-const BatteryPill = ({ percentage, charging }: { percentage: number, charging: boolean }) => {
+const BatteryPill = ({ percentage }: { percentage: number }) => {
     const clamped = Math.max(0, Math.min(100, percentage));
     const fillColor = clamped <= 20 ? '#ef4444' : clamped <= 50 ? '#f59e0b' : '#22c55e';
 
@@ -116,7 +111,6 @@ const BatteryPill = ({ percentage, charging }: { percentage: number, charging: b
                 className="h-full rounded-[2px] transition-all"
                 style={{ width: `${clamped}%`, backgroundColor: fillColor }}
             />
-            {charging && <div className="absolute inset-0 flex items-center justify-center text-[8px] text-black font-semibold">+</div>}
         </div>
     );
 };

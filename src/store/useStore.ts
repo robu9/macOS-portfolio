@@ -4,7 +4,6 @@ export type AppId =
   | 'finder'
   | 'safari'
   | 'vscode'
-  | 'spotify'
   | 'calendar'
   | 'terminal'
   | 'messages'
@@ -104,7 +103,6 @@ const initialApps: AppState[] = [
   { id: 'finder', isOpen: true, isMax: false, isFS: false, isPan: false },
   { id: 'safari', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'vscode', isOpen: false, isMax: false, isFS: false, isPan: false },
-  { id: 'spotify', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'photos', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'maps', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'contacts', isOpen: false, isMax: false, isFS: false, isPan: false },
@@ -123,7 +121,6 @@ const getAppTitle = (id: AppId) => {
     finder: "Finder",
     safari: "Safari",
     vscode: "VS Code",
-    spotify: "Spotify",
     photos: "Photos",
     maps: "Maps",
     contacts: "Contacts",
