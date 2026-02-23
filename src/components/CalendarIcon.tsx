@@ -7,9 +7,9 @@ export const CalendarIcon = ({ className = '' }: { className?: string }) => {
     const month = now.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
 
     return (
-        <div className={`rounded-[20%] overflow-hidden border border-black/10 dark:border-white/15 shadow-sm bg-white dark:bg-[#1f1f22] ${className}`}>
+        <div className={`rounded-[20%] overflow-hidden border border-black/10 shadow-sm bg-white ${className}`}>
             <svg viewBox="0 0 100 100" className="w-full h-full" aria-label={`Calendar ${month} ${day}`}>
-                <rect x="0" y="0" width="100" height="100" fill="currentColor" className="text-white dark:text-[#1f1f22]" />
+                <rect x="0" y="0" width="100" height="100" fill="#ffffff" />
                 <rect x="0" y="0" width="100" height="28" fill="#f84f4f" />
                 <line x1="0" y1="28" x2="100" y2="28" stroke="rgba(0,0,0,0.12)" strokeWidth="1" />
                 <text
@@ -31,8 +31,7 @@ export const CalendarIcon = ({ className = '' }: { className?: string }) => {
                     dominantBaseline="middle"
                     fontSize="52"
                     fontWeight="700"
-                    fill="currentColor"
-                    className="text-[#1f1f22] dark:text-white"
+                    fill="#1f1f22"
                 >
                     {day}
                 </text>

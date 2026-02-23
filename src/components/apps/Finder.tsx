@@ -1,7 +1,7 @@
 'use client';
 import React, { useState } from 'react';
 import { useStore, AppId, AboutSection } from '../../store/useStore';
-import { ChevronLeft, ChevronRight, LayoutGrid, List, Search } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Coffee, LayoutGrid, List, Search } from 'lucide-react';
 import { PHOTO_ASSETS } from '../../data/photoAssets';
 import { CalendarIcon } from '../CalendarIcon';
 
@@ -45,7 +45,7 @@ export const Finder = () => {
     const renderContent = () => {
         switch (selected) {
             case 'Applications': {
-                const apps: Array<{ id: AppId; name: string; icon: string; dynamicCalendar?: boolean }> = [
+                const apps: Array<{ id: AppId; name: string; icon: string; dynamicCalendar?: boolean; coffeeIcon?: boolean }> = [
                     { id: 'about', name: 'About Me', icon: '/apps/about me.png' },
                     { id: 'safari', name: 'Safari', icon: '/apps/safari.png' },
                     { id: 'messages', name: 'Messages', icon: '/apps/messages.png' },
@@ -59,6 +59,7 @@ export const Finder = () => {
                     { id: 'notes', name: 'Notes', icon: '/apps/notes.png' },
                     { id: 'feedback', name: 'Feedback', icon: '/apps/feedback.png' },
                     { id: 'sysPref', name: 'System Preferences', icon: '/apps/system preferences.png' },
+                    { id: 'buymeacoffee', name: 'Buy Me a Coffee', icon: '/apps/itunes.png', coffeeIcon: true },
                 ];
                 const filteredApps = apps.filter((item) => item.name.toLowerCase().includes(normalizedQuery));
                 return renderCollection(
@@ -70,6 +71,7 @@ export const Finder = () => {
                                 icon={item.icon}
                                 viewMode={viewMode}
                                 dynamicCalendar={item.dynamicCalendar}
+                                coffeeIcon={item.coffeeIcon}
                                 onClick={() => handleAppClick(item.id)}
                             />
                         ))
@@ -252,12 +254,16 @@ const SidebarBtn = ({ name, icon, active, onClick }: { name: string, icon: strin
     </button>
 );
 
-const AppIcon = ({ name, icon, onClick, viewMode, dynamicCalendar }: { name: string, icon: string, onClick: () => void, viewMode: ViewMode, dynamicCalendar?: boolean }) => (
+const AppIcon = ({ name, icon, onClick, viewMode, dynamicCalendar, coffeeIcon }: { name: string, icon: string, onClick: () => void, viewMode: ViewMode, dynamicCalendar?: boolean, coffeeIcon?: boolean }) => (
     viewMode === 'grid' ? (
         <div onDoubleClick={onClick} className="flex flex-col items-center gap-1 group outline-none cursor-default py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
             <div className="w-14 h-14 pointer-events-none">
                 {dynamicCalendar ? (
                     <CalendarIcon className="w-full h-full" />
+                ) : coffeeIcon ? (
+                    <div className="w-full h-full rounded-[20%] bg-[#ffdd00] border border-black/10 flex items-center justify-center">
+                        <Coffee className="w-[52%] h-[52%] text-[#2f2a1f]" />
+                    </div>
                 ) : (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={icon} alt={name} className="w-full h-full object-contain drop-shadow-md" onError={(e) => e.currentTarget.style.display = 'none'} />
@@ -270,6 +276,10 @@ const AppIcon = ({ name, icon, onClick, viewMode, dynamicCalendar }: { name: str
             <div className="w-8 h-8 shrink-0">
                 {dynamicCalendar ? (
                     <CalendarIcon className="w-full h-full" />
+                ) : coffeeIcon ? (
+                    <div className="w-full h-full rounded-[20%] bg-[#ffdd00] border border-black/10 flex items-center justify-center">
+                        <Coffee className="w-[52%] h-[52%] text-[#2f2a1f]" />
+                    </div>
                 ) : (
                     // eslint-disable-next-line @next/next/no-img-element
                     <img src={icon} alt={name} className="w-full h-full object-contain" onError={(e) => e.currentTarget.style.display = 'none'} />

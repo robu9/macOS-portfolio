@@ -9,7 +9,7 @@ import { Spotlight } from './Spotlight';
 import { MenuDropdown } from './MenuDropdown';
 
 export const Desktop = ({ children }: { children?: React.ReactNode }) => {
-    const { brightness, wallpaper, darkTheme } = useStore();
+    const { brightness, darkTheme } = useStore();
 
     // Toggle 'dark' class on html element based on darkTheme state
     React.useEffect(() => {

@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search } from 'lucide-react';
+import { Coffee, Search } from 'lucide-react';
 import { useStore, AppId } from '../store/useStore';
 import { CalendarIcon } from './CalendarIcon';
 
@@ -26,6 +26,7 @@ const LAUNCHPAD_APPS: LaunchpadItem[] = [
     { id: 'notes', name: 'Notes', icon: '/apps/notes.png' },
     { id: 'feedback', name: 'Feedback', icon: '/apps/feedback.png' },
     { id: 'sysPref', name: 'System Preferences', icon: '/apps/system preferences.png' },
+    { id: 'buymeacoffee', name: 'Buy Me a Coffee', icon: '/apps/itunes.png' },
 ];
 
 export const Launchpad = () => {
@@ -76,6 +77,10 @@ export const Launchpad = () => {
                                     <div className="w-20 h-20 mb-2">
                                         {app.id === 'calendar' ? (
                                             <CalendarIcon className="w-full h-full drop-shadow-lg pointer-events-none select-none" />
+                                        ) : app.id === 'buymeacoffee' ? (
+                                            <div className="w-full h-full rounded-[22%] bg-[#ffdd00] border border-black/10 shadow-lg flex items-center justify-center pointer-events-none select-none">
+                                                <Coffee className="w-9 h-9 text-[#2f2a1f]" />
+                                            </div>
                                         ) : (
                                             // eslint-disable-next-line @next/next/no-img-element
                                             <img src={app.icon} alt={app.name} className="w-full h-full object-contain drop-shadow-lg pointer-events-none select-none" draggable={false} />

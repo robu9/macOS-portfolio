@@ -14,7 +14,8 @@ export type AppId =
   | 'photos'
   | 'maps'
   | 'contacts'
-  | 'notes';
+  | 'notes'
+  | 'buymeacoffee';
 
 export interface AppState {
   id: AppId;
@@ -108,6 +109,7 @@ const initialApps: AppState[] = [
   { id: 'maps', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'contacts', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'notes', isOpen: false, isMax: false, isFS: false, isPan: false },
+  { id: 'buymeacoffee', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'calendar', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'terminal', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'messages', isOpen: false, isMax: false, isFS: false, isPan: false },
@@ -126,6 +128,7 @@ const getAppTitle = (id: AppId) => {
     maps: "Maps",
     contacts: "Contacts",
     notes: "Notes",
+    buymeacoffee: "Buy Me a Coffee",
     calendar: "Calendar",
     terminal: "Terminal",
     messages: "Messages",

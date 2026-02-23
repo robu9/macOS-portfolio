@@ -16,6 +16,7 @@ import { Photos } from './apps/Photos';
 import { Maps } from './apps/Maps';
 import { Contacts } from './apps/Contacts';
 import { Notes } from './apps/Notes';
+import { BuyMeCoffee } from './apps/BuyMeCoffee';
 
 export const WindowManager = () => {
     const { apps } = useStore();
@@ -28,6 +29,7 @@ export const WindowManager = () => {
         'maps',
         'contacts',
         'notes',
+        'buymeacoffee',
         'calendar',
         'terminal',
         'messages',
@@ -52,6 +54,7 @@ export const WindowManager = () => {
                         {app.id === 'maps' && <Maps />}
                         {app.id === 'contacts' && <Contacts />}
                         {app.id === 'notes' && <Notes />}
+                        {app.id === 'buymeacoffee' && <BuyMeCoffee />}
                         {app.id === 'finder' && <Finder />}
                         {app.id === 'about' && <AboutMe />}
                         {app.id === 'calendar' && <Calendar />}
