@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { ArrowUpRight, Bot, Github, Globe, Zap } from 'lucide-react';
+import { ArrowUpRight, Bot, Github, Globe, Monitor, Zap } from 'lucide-react';
 import { useStore, AboutSection } from '../../store/useStore';
 
 type Section = AboutSection;
@@ -8,7 +8,7 @@ type SkillCategory = { name: string; skills: string[] };
 type Project = {
     icon: React.ReactNode;
     name: string;
-    link: string;
+    link?: string;
     desc: string;
     stack: string[];
 };
@@ -33,6 +33,13 @@ const skillCategories: SkillCategory[] = [
 const projects: Project[] = [
 
     {
+        icon: <Monitor size={20} />,
+        name: 'macOS Styled Portfolio',
+        link: 'https://robuworks.vercel.app',
+        desc: 'A desktop-grade portfolio experience inspired by macOS interactions and visual language.',
+        stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+    },
+    {
         icon: <Zap size={20} />,
         name: 'Paxio - Autonomous AI Workspace',
         link: 'https://paxio.tech',
@@ -42,14 +49,12 @@ const projects: Project[] = [
     {
         icon: <Globe size={20} />,
         name: 'AI-powered OSINT Platform',
-        link: 'https://github.com/robu9/osint',
         desc: 'Automated intelligence workflows with NLP-driven entity extraction and source analysis.',
         stack: ['Python', 'NLP', 'Entity Extraction'],
     },
     {
         icon: <Bot size={20} />,
         name: 'Auto ML Platform',
-        link: 'https://github.com/robu9',
         desc: 'An end-to-end AutoML workflow that automates preprocessing, model selection, tuning, and evaluation from one place.',
         stack: ['Python', 'Scikit-learn', 'Optuna', 'FastAPI'],
     },
@@ -91,7 +96,7 @@ export const AboutMe = () => {
                                 />
                                 <div>
                                     <h1 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">Robu</h1>
-                        <p className="mt-1 text-sm font-medium text-gray-600 dark:text-gray-300">20, Engineer</p>
+                                    <p className="mt-1 text-sm font-medium text-gray-600 dark:text-gray-300">20, Engineer</p>
                                     <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                                         I build practical AI products and polished interfaces with a strong focus on clarity,
                                         performance, and real world usability.
@@ -209,11 +214,8 @@ export const AboutMe = () => {
     );
 };
 
-const ProjectRow = ({ icon, name, link, desc, stack }: { icon: React.ReactNode, name: string, link: string, desc: string, stack: string[] }) => (
-    <a
-        href={link}
-        target="_blank"
-        rel="noreferrer"
+const ProjectRow = ({ icon, name, link, desc, stack }: { icon: React.ReactNode, name: string, link?: string, desc: string, stack: string[] }) => (
+    <div
         className="group flex h-full flex-col rounded-xl border border-black/10 bg-white/80 p-4 transition-colors hover:bg-black/[0.02] dark:border-white/10 dark:bg-[#2b2b2d]/80 dark:hover:bg-[#303033]"
     >
         <div className="flex items-start gap-3">
@@ -236,9 +238,15 @@ const ProjectRow = ({ icon, name, link, desc, stack }: { icon: React.ReactNode, 
             ))}
         </div>
         <div className="mt-auto pt-3 text-xs font-medium text-gray-500 dark:text-gray-400">
-            Open Project <ArrowUpRight size={12} className="ml-1 inline" />
+            {link ? (
+                <a href={link} target="_blank" rel="noreferrer" className="hover:text-blue-500 transition-colors">
+                    Open Project <ArrowUpRight size={12} className="ml-1 inline" />
+                </a>
+            ) : (
+                <span>Reference Only</span>
+            )}
         </div>
-    </a>
+    </div>
 );
 
 const SidebarLink = ({ name, icon, active, onClick }: { name: string, icon: string, active: boolean, onClick: () => void }) => (

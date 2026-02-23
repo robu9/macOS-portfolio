@@ -23,9 +23,9 @@ export const Desktop = ({ children }: { children?: React.ReactNode }) => {
     const getWallpaperUrl = () => {
         // Change wallpaper based on theme for realism
         if (darkTheme) {
-            return `/wallpapers/realbigsur_dark.jpg`;
+            return `/wallpapers/bigsur_dark.jpg`;
         }
-        return `/wallpapers/realbigsur_light.jpg`;
+        return `/wallpapers/bigsur_light.jpg`;
     };
 
     return (

@@ -2,6 +2,7 @@
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, type MotionValue } from 'framer-motion';
 import { useStore, AppId } from '../store/useStore';
+import { CalendarIcon } from './CalendarIcon';
 
 interface DockItem {
     id: AppId | 'launchpad';
@@ -82,8 +83,12 @@ const DockIcon = ({ item, mouseX, isActive, onClick }: { item: DockItem, mouseX:
                 className="relative cursor-default"
                 onClick={onClick}
             >
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={item.icon} alt={item.name} className="w-full h-full object-contain" draggable={false} />
+                {item.id === 'calendar' ? (
+                    <CalendarIcon className="w-full h-full" />
+                ) : (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img src={item.icon} alt={item.name} className="w-full h-full object-contain" draggable={false} />
+                )}
             </motion.div>
             <div className={`mt-1 h-1 w-1 rounded-full ${isActive ? 'bg-black/80 dark:bg-white/80' : 'bg-transparent'}`} />
         </div>

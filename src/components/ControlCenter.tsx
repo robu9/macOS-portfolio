@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useStore } from '../store/useStore';
 import { Wifi, Bluetooth, Airplay, Sun, Moon, Volume2 } from 'lucide-react';
 
@@ -11,13 +11,31 @@ export const ControlCenter = () => {
         airdrop, toggleAirdrop,
         brightness, setBrightness,
         volume, setVolume,
-        darkTheme, toggleDarkTheme
+        darkTheme, toggleDarkTheme,
+        offCc
     } = useStore();
+    const panelRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (!ccOpen) return;
+
+        const handleOutsideClick = (event: MouseEvent) => {
+            if (!panelRef.current) return;
+            if (panelRef.current.contains(event.target as Node)) return;
+            offCc();
+        };
+
+        window.addEventListener('mousedown', handleOutsideClick);
+        return () => window.removeEventListener('mousedown', handleOutsideClick);
+    }, [ccOpen, offCc]);
 
     if (!ccOpen) return null;
 
     return (
-        <div className="absolute top-9 right-2 w-80 bg-[#1c1c1e]/70 backdrop-blur-3xl rounded-2xl p-4 shadow-2xl text-white z-50 transition-all duration-300 transform origin-top-right border border-white/10">
+        <div
+            ref={panelRef}
+            className="absolute top-9 right-2 w-80 bg-[#1c1c1e]/70 backdrop-blur-3xl rounded-2xl p-4 shadow-2xl text-white z-50 transition-all duration-300 transform origin-top-right border border-white/10"
+        >
             <div className="grid grid-cols-2 gap-4">
                 {/* Network & Devices Box */}
                 <div className="col-span-1 bg-white/10 rounded-xl p-3 flex flex-col space-y-3">

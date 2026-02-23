@@ -3,6 +3,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Search } from 'lucide-react';
 import { useStore, AppId } from '../store/useStore';
+import { CalendarIcon } from './CalendarIcon';
 
 interface LaunchpadItem {
     id: AppId;
@@ -73,8 +74,12 @@ export const Launchpad = () => {
                                     onClick={() => handleAppClick(app)}
                                 >
                                     <div className="w-20 h-20 mb-2">
-                                        {/* eslint-disable-next-line @next/next/no-img-element */}
-                                        <img src={app.icon} alt={app.name} className="w-full h-full object-contain drop-shadow-lg pointer-events-none select-none" draggable={false} />
+                                        {app.id === 'calendar' ? (
+                                            <CalendarIcon className="w-full h-full drop-shadow-lg pointer-events-none select-none" />
+                                        ) : (
+                                            // eslint-disable-next-line @next/next/no-img-element
+                                            <img src={app.icon} alt={app.name} className="w-full h-full object-contain drop-shadow-lg pointer-events-none select-none" draggable={false} />
+                                        )}
                                     </div>
                                     <span className="text-white text-[13px] font-medium tracking-wide drop-shadow-md pb-[2px]">{app.name}</span>
                                 </div>

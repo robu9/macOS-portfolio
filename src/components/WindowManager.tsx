@@ -105,10 +105,10 @@ const WindowContainer = ({ id, children }: { id: AppId, children: React.ReactNod
                 left: isFS ? 0 : 100,
                 zIndex: isFocused ? 40 : 30
             }}
-            className={`rounded-xl overflow-hidden shadow-2xl border border-white/20 bg-white/90 backdrop-blur-md flex flex-col`}
+            className="rounded-xl overflow-hidden shadow-2xl border border-white/20 dark:border-white/10 bg-white/90 dark:bg-[#232327]/90 backdrop-blur-md flex flex-col"
             onMouseDown={() => bringToTop(id)}
         >
-            <div className="h-7 min-h-[28px] w-full flex items-center px-4 space-x-2 bg-gradient-to-b from-white/50 to-white/10 select-none cursor-grab active:cursor-grabbing border-b border-black/10">
+            <div className="h-7 min-h-[28px] w-full flex items-center px-4 space-x-2 bg-gradient-to-b from-white/55 to-white/15 dark:from-[#2b2b2f]/95 dark:to-[#1f1f22]/85 select-none cursor-grab active:cursor-grabbing border-b border-black/10 dark:border-white/10">
                 <button
                     onMouseDown={(e) => e.stopPropagation()}
                     onClick={() => closeApp(id)}
