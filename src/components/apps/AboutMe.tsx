@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { ArrowUpRight, Bot, Github, Globe, Monitor, Zap } from 'lucide-react';
+import { ArrowUpRight, Bot, Github, Globe, Mail, Monitor, Zap } from 'lucide-react';
 import { useStore, AboutSection } from '../../store/useStore';
 
 type Section = AboutSection;
@@ -31,14 +31,6 @@ const skillCategories: SkillCategory[] = [
 ];
 
 const projects: Project[] = [
-
-    {
-        icon: <Monitor size={20} />,
-        name: 'macOS Styled Portfolio',
-        link: 'https://robuworks.vercel.app',
-        desc: 'A desktop-grade portfolio experience inspired by macOS interactions and visual language.',
-        stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-    },
     {
         icon: <Zap size={20} />,
         name: 'Paxio - Autonomous AI Workspace',
@@ -51,6 +43,13 @@ const projects: Project[] = [
         name: 'AI-powered OSINT Platform',
         desc: 'Automated intelligence workflows with NLP-driven entity extraction and source analysis.',
         stack: ['Python', 'NLP', 'Entity Extraction'],
+    },
+    {
+        icon: <Monitor size={20} />,
+        name: 'macOS Styled Portfolio',
+        link: 'https://robuworks.vercel.app',
+        desc: 'A desktop-grade portfolio experience inspired by macOS interactions and visual language.',
+        stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     },
     {
         icon: <Bot size={20} />,
@@ -101,6 +100,25 @@ export const AboutMe = () => {
                                         I build practical AI products and polished interfaces with a strong focus on clarity,
                                         performance, and real world usability.
                                     </p>
+                                    <div className="mt-4 flex flex-wrap gap-2">
+                                        <a
+                                            href="https://github.com/robu9"
+                                            target="_blank"
+                                            rel="noreferrer"
+                                            className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/80 px-3 py-1.5 text-xs font-medium text-gray-700 transition-colors hover:bg-black/[0.03] dark:border-white/10 dark:bg-black/20 dark:text-gray-200 dark:hover:bg-white/10"
+                                        >
+                                            <Github size={14} />
+                                            github.com/robu9
+                                            <ArrowUpRight size={12} />
+                                        </a>
+                                        <a
+                                            href="mailto:robugamer7622@gmail.com"
+                                            className="inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/80 px-3 py-1.5 text-xs font-medium text-gray-700 transition-colors hover:bg-black/[0.03] dark:border-white/10 dark:bg-black/20 dark:text-gray-200 dark:hover:bg-white/10"
+                                        >
+                                            <Mail size={14} />
+                                            robugamer7622@gmail.com
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </section>
@@ -219,7 +237,7 @@ const ProjectRow = ({ icon, name, link, desc, stack }: { icon: React.ReactNode, 
         className="group flex h-full flex-col rounded-xl border border-black/10 bg-white/80 p-4 transition-colors hover:bg-black/[0.02] dark:border-white/10 dark:bg-[#2b2b2d]/80 dark:hover:bg-[#303033]"
     >
         <div className="flex items-start gap-3">
-            <span className="mt-0.5 flex h-8 w-8 items-center justify-center rounded-md bg-black/5 text-gray-600 dark:bg-white/10 dark:text-gray-300">
+            <span className="mt-0.5 flex h-8 w-8 items-center justify-center text-gray-600 dark:text-gray-300">
                 {icon}
             </span>
             <div>
@@ -242,9 +260,7 @@ const ProjectRow = ({ icon, name, link, desc, stack }: { icon: React.ReactNode, 
                 <a href={link} target="_blank" rel="noreferrer" className="hover:text-blue-500 transition-colors">
                     Open Project <ArrowUpRight size={12} className="ml-1 inline" />
                 </a>
-            ) : (
-                <span>Reference Only</span>
-            )}
+            ) : null}
         </div>
     </div>
 );
