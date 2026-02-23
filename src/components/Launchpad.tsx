@@ -5,10 +5,9 @@ import { Search } from 'lucide-react';
 import { useStore, AppId } from '../store/useStore';
 
 interface LaunchpadItem {
-    id: string;
+    id: AppId;
     name: string;
     icon: string;
-    isLink?: boolean;
 }
 
 const LAUNCHPAD_APPS: LaunchpadItem[] = [
@@ -16,34 +15,24 @@ const LAUNCHPAD_APPS: LaunchpadItem[] = [
     { id: 'about', name: 'About Me', icon: '/apps/about me.png' },
     { id: 'safari', name: 'Safari', icon: '/apps/safari.png' },
     { id: 'messages', name: 'Messages', icon: '/apps/messages.png' },
-    { id: 'maps', name: 'Maps', icon: '/apps/maps.png', isLink: true },
+    { id: 'maps', name: 'Maps', icon: '/apps/maps.png' },
     { id: 'spotify', name: 'Spotify', icon: '/apps/spotify.png' },
     { id: 'terminal', name: 'Terminal', icon: '/apps/terminal.png' },
     { id: 'vscode', name: 'Visual Studio Code', icon: '/apps/visual studio code.png' },
-    { id: 'photos', name: 'Photos', icon: '/apps/photos.png', isLink: true },
-    { id: 'contacts', name: 'Contacts', icon: '/apps/contacts.png', isLink: true },
+    { id: 'photos', name: 'Photos', icon: '/apps/photos.png' },
+    { id: 'contacts', name: 'Contacts', icon: '/apps/contacts.png' },
     { id: 'calendar', name: 'Calendar', icon: '/apps/calendar.png' },
-    { id: 'notes', name: 'Notes', icon: '/apps/notes.png', isLink: true },
+    { id: 'notes', name: 'Notes', icon: '/apps/notes.png' },
     { id: 'feedback', name: 'Feedback', icon: '/apps/feedback.png' },
     { id: 'sysPref', name: 'System Preferences', icon: '/apps/system preferences.png' },
 ];
 
 export const Launchpad = () => {
-    const { launchPadOn, offLaunchPad, openApp, setNotification, onNotifications, wallpaper } = useStore();
+    const { launchPadOn, offLaunchPad, openApp } = useStore();
 
     const handleAppClick = (app: LaunchpadItem) => {
-        if (app.isLink) {
-            setNotification({
-                notification: "App has not been installed. Create the app on GitHub.",
-                url: "https://github.com/robu9",
-                app: app.id,
-                head: "Not installed"
-            });
-            onNotifications();
-        } else {
-            offLaunchPad();
-            openApp(app.id as AppId);
-        }
+        offLaunchPad();
+        openApp(app.id);
     };
 
     return (

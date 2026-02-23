@@ -1,12 +1,48 @@
 'use client';
-import React, { useEffect, useRef, useState } from 'react';
-import { useStore } from '../store/useStore';
-import { Search } from 'lucide-react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { useStore, AppId } from '../store/useStore';
+import { Search, Command } from 'lucide-react';
+
+interface SpotlightApp {
+    id: AppId;
+    name: string;
+}
+
+const SPOTLIGHT_APPS: SpotlightApp[] = [
+    { id: 'finder', name: 'Finder' },
+    { id: 'safari', name: 'Safari' },
+    { id: 'messages', name: 'Messages' },
+    { id: 'maps', name: 'Maps' },
+    { id: 'spotify', name: 'Spotify' },
+    { id: 'terminal', name: 'Terminal' },
+    { id: 'vscode', name: 'Visual Studio Code' },
+    { id: 'photos', name: 'Photos' },
+    { id: 'contacts', name: 'Contacts' },
+    { id: 'calendar', name: 'Calendar' },
+    { id: 'notes', name: 'Notes' },
+    { id: 'feedback', name: 'Feedback' },
+    { id: 'sysPref', name: 'System Preferences' },
+    { id: 'about', name: 'About Me' },
+];
 
 export const Spotlight = () => {
-    const { spotlightOpen, offSpotlight } = useStore();
+    const { spotlightOpen, offSpotlight, openApp } = useStore();
     const [query, setQuery] = useState('');
     const inputRef = useRef<HTMLInputElement>(null);
+    const normalizedQuery = query.trim().toLowerCase();
+
+    const filteredApps = useMemo(
+        () => SPOTLIGHT_APPS.filter((app) => app.name.toLowerCase().includes(normalizedQuery)),
+        [normalizedQuery]
+    );
+
+    const topHit = filteredApps[0];
+
+    const openFromSpotlight = (id: AppId) => {
+        openApp(id);
+        offSpotlight();
+        setQuery('');
+    };
 
     // Focus input when Spotlight opens
     useEffect(() => {
@@ -58,21 +94,46 @@ export const Spotlight = () => {
                     <div className="border-t border-white/10 flex">
                         <div className="w-1/3 border-r border-white/10 p-2 text-[13px] text-white">
                             <div className="px-3 py-1 text-white/50 font-medium">Top Hit</div>
-                            <div className="px-3 py-2 bg-blue-500 rounded-md cursor-pointer">
-                                {query}
-                            </div>
+                            {topHit ? (
+                                <button
+                                    onClick={() => openFromSpotlight(topHit.id)}
+                                    className="w-full text-left px-3 py-2 bg-blue-500 rounded-md cursor-pointer text-white"
+                                >
+                                    {topHit.name}
+                                </button>
+                            ) : (
+                                <div className="px-3 py-2 rounded-md bg-white/5 text-white/70">No Top Hit</div>
+                            )}
                             <div className="px-3 py-1 text-white/50 font-medium mt-2">Applications</div>
-                            <div className="px-3 py-2 hover:bg-white/10 rounded-md cursor-pointer transition-colors">
-                                Finder
-                            </div>
-                            <div className="px-3 py-2 hover:bg-white/10 rounded-md cursor-pointer transition-colors">
-                                Safari
-                            </div>
+                            {filteredApps.slice(0, 6).map((app) => (
+                                <button
+                                    key={app.id}
+                                    onClick={() => openFromSpotlight(app.id)}
+                                    className="w-full text-left px-3 py-2 hover:bg-white/10 rounded-md cursor-pointer transition-colors"
+                                >
+                                    {app.name}
+                                </button>
+                            ))}
                         </div>
                         <div className="w-2/3 p-6 flex flex-col items-center justify-center text-white/70">
-                            <Search className="w-16 h-16 mb-4 opacity-20" />
-                            <span className="text-lg">No exact matches found for "{query}"</span>
-                            <span className="text-sm opacity-50">Try searching for an application or document.</span>
+                            {topHit ? (
+                                <>
+                                    <Command className="w-16 h-16 mb-4 opacity-20" />
+                                    <span className="text-lg text-center">{topHit.name}</span>
+                                    <button
+                                        onClick={() => openFromSpotlight(topHit.id)}
+                                        className="mt-4 px-4 py-2 rounded-md bg-blue-500 text-white text-sm hover:bg-blue-400 transition-colors"
+                                    >
+                                        Open Application
+                                    </button>
+                                </>
+                            ) : (
+                                <>
+                                    <Search className="w-16 h-16 mb-4 opacity-20" />
+                                    <span className="text-lg">No exact matches found for {query}</span>
+                                    <span className="text-sm opacity-50">Try searching for an application or document.</span>
+                                </>
+                            )}
                         </div>
                     </div>
                 )}

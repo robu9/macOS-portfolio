@@ -1,10 +1,10 @@
 'use client';
 import React, { useRef } from 'react';
-import { motion, useMotionValue, useSpring, useTransform } from 'framer-motion';
+import { motion, useMotionValue, useSpring, useTransform, type MotionValue } from 'framer-motion';
 import { useStore, AppId } from '../store/useStore';
 
 interface DockItem {
-    id: AppId | 'launchpad' | 'photos' | 'notes';
+    id: AppId | 'launchpad';
     name: string;
     icon: string;
 }
@@ -14,6 +14,8 @@ const DOCK_ITEMS: DockItem[] = [
     { id: 'launchpad', name: 'Launchpad', icon: '/apps/launchpad.png' },
     { id: 'safari', name: 'Safari', icon: '/apps/safari.png' },
     { id: 'messages', name: 'Messages', icon: '/apps/messages.png' },
+    { id: 'maps', name: 'Maps', icon: '/apps/maps.png' },
+    { id: 'contacts', name: 'Contacts', icon: '/apps/contacts.png' },
     { id: 'about', name: 'About Me', icon: '/apps/about me.png' },
     { id: 'spotify', name: 'Spotify', icon: '/apps/spotify.png' },
     { id: 'terminal', name: 'Terminal', icon: '/apps/terminal.png' },
@@ -25,23 +27,17 @@ const DOCK_ITEMS: DockItem[] = [
     { id: 'sysPref', name: 'System Preferences', icon: '/apps/system preferences.png' },
 ];
 
+const isAppItem = (id: DockItem['id']): id is AppId => id !== 'launchpad';
+
 export const Dock = () => {
     const mouseX = useMotionValue(Infinity);
-    const { openApp, activeApps, toggleLaunchPad, setNotification, onNotifications } = useStore();
+    const { openApp, activeApps, toggleLaunchPad } = useStore();
 
     const handleAppClick = (item: DockItem) => {
         if (item.id === 'launchpad') {
             toggleLaunchPad();
-        } else if (item.id === 'photos' || item.id === 'notes') {
-            setNotification({
-                notification: "App has not been installed. Create the app on GitHub.",
-                url: "https://github.com/robu9",
-                app: item.id,
-                head: "Not installed"
-            });
-            onNotifications();
         } else {
-            openApp(item.id as AppId);
+            openApp(item.id);
         }
     };
 
@@ -57,7 +53,7 @@ export const Dock = () => {
                         key={item.id}
                         item={item}
                         mouseX={mouseX}
-                        isActive={activeApps.includes(item.id as AppId)}
+                        isActive={isAppItem(item.id) && activeApps.includes(item.id)}
                         onClick={() => handleAppClick(item)}
                     />
                 ))}
@@ -66,7 +62,7 @@ export const Dock = () => {
     );
 };
 
-const DockIcon = ({ item, mouseX, isActive, onClick }: { item: DockItem, mouseX: any, isActive: boolean, onClick: () => void }) => {
+const DockIcon = ({ item, mouseX, isActive, onClick }: { item: DockItem, mouseX: MotionValue<number>, isActive: boolean, onClick: () => void }) => {
     const ref = useRef<HTMLDivElement>(null);
 
     const distance = useTransform(mouseX, (val: number) => {

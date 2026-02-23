@@ -10,7 +10,11 @@ export type AppId =
   | 'messages'
   | 'feedback'
   | 'about'
-  | 'sysPref';
+  | 'sysPref'
+  | 'photos'
+  | 'maps'
+  | 'contacts'
+  | 'notes';
 
 export interface AppState {
   id: AppId;
@@ -96,6 +100,10 @@ const initialApps: AppState[] = [
   { id: 'safari', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'vscode', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'spotify', isOpen: false, isMax: false, isFS: false, isPan: false },
+  { id: 'photos', isOpen: false, isMax: false, isFS: false, isPan: false },
+  { id: 'maps', isOpen: false, isMax: false, isFS: false, isPan: false },
+  { id: 'contacts', isOpen: false, isMax: false, isFS: false, isPan: false },
+  { id: 'notes', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'calendar', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'terminal', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'messages', isOpen: false, isMax: false, isFS: false, isPan: false },
@@ -110,6 +118,10 @@ const getAppTitle = (id: AppId) => {
     safari: "Safari",
     vscode: "VS Code",
     spotify: "Spotify",
+    photos: "Photos",
+    maps: "Maps",
+    contacts: "Contacts",
+    notes: "Notes",
     calendar: "Calendar",
     terminal: "Terminal",
     messages: "Messages",
@@ -186,7 +198,7 @@ export const useStore = create<MacState>((set, get) => ({
     const isActive = state.activeApps.includes(id);
     return {
       activeApps: isActive ? state.activeApps : [...state.activeApps, id],
-      apps: state.apps.map(app => app.id === id ? { ...app, isOpen: true, isMax: false } : app),
+      apps: state.apps.map(app => app.id === id ? { ...app, isOpen: true, isMax: false, isPan: false } : app),
       onTop: getAppTitle(id)
     };
   }),

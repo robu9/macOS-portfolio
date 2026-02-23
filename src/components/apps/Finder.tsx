@@ -1,26 +1,16 @@
 'use client';
 import React, { useState } from 'react';
-import { useStore } from '../../store/useStore';
+import { useStore, AppId } from '../../store/useStore';
 import { ChevronLeft, ChevronRight, LayoutGrid, List, Search } from 'lucide-react';
 
 type SidebarItem = 'Applications' | 'Desktop' | 'Documents' | 'Downloads' | 'Movies' | 'Music' | 'Pictures';
 
 export const Finder = () => {
     const [selected, setSelected] = useState<SidebarItem>('Applications');
-    const { openApp, onNotifications, setNotification } = useStore();
+    const { openApp } = useStore();
 
-    const handleAppClick = (id: string, isLink = false) => {
-        if (isLink) {
-            setNotification({
-                notification: "App has not been installed. Create the app on GitHub.",
-                url: "https://github.com/robu9",
-                app: id,
-                head: "Not installed"
-            });
-            onNotifications();
-        } else {
-            openApp(id as any);
-        }
+    const handleAppClick = (id: AppId) => {
+        openApp(id);
     };
 
     const renderContent = () => {
@@ -28,19 +18,19 @@ export const Finder = () => {
             case 'Applications':
                 return (
                     <div className="p-8 grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-y-10 gap-x-4">
-                        <AppIcon id="about" name="About Me" icon="/apps/about me.png" onClick={() => handleAppClick('about')} />
-                        <AppIcon id="safari" name="Safari" icon="/apps/safari.png" onClick={() => handleAppClick('safari')} />
-                        <AppIcon id="messages" name="Messages" icon="/apps/messages.png" onClick={() => handleAppClick('messages')} />
-                        <AppIcon id="maps" name="Maps" icon="/apps/maps.png" onClick={() => handleAppClick('maps', true)} />
-                        <AppIcon id="spotify" name="Spotify" icon="/apps/spotify.png" onClick={() => handleAppClick('spotify')} />
-                        <AppIcon id="terminal" name="Terminal" icon="/apps/terminal.png" onClick={() => handleAppClick('terminal')} />
-                        <AppIcon id="vscode" name="Visual Studio Code" icon="/apps/visual studio code.png" onClick={() => handleAppClick('vscode')} />
-                        <AppIcon id="photos" name="Photos" icon="/apps/photos.png" onClick={() => handleAppClick('photos', true)} />
-                        <AppIcon id="contacts" name="Contacts" icon="/apps/contacts.png" onClick={() => handleAppClick('contacts', true)} />
-                        <AppIcon id="calendar" name="Calendar" icon="/apps/calendar.png" onClick={() => handleAppClick('calendar')} />
-                        <AppIcon id="notes" name="Notes" icon="/apps/notes.png" onClick={() => handleAppClick('notes', true)} />
-                        <AppIcon id="feedback" name="Feedback" icon="/apps/feedback.png" onClick={() => handleAppClick('feedback')} />
-                        <AppIcon id="sysPref" name="System Preferences" icon="/apps/system preferences.png" onClick={() => handleAppClick('sysPref')} />
+                        <AppIcon name="About Me" icon="/apps/about me.png" onClick={() => handleAppClick('about')} />
+                        <AppIcon name="Safari" icon="/apps/safari.png" onClick={() => handleAppClick('safari')} />
+                        <AppIcon name="Messages" icon="/apps/messages.png" onClick={() => handleAppClick('messages')} />
+                        <AppIcon name="Maps" icon="/apps/maps.png" onClick={() => handleAppClick('maps')} />
+                        <AppIcon name="Spotify" icon="/apps/spotify.png" onClick={() => handleAppClick('spotify')} />
+                        <AppIcon name="Terminal" icon="/apps/terminal.png" onClick={() => handleAppClick('terminal')} />
+                        <AppIcon name="Visual Studio Code" icon="/apps/visual studio code.png" onClick={() => handleAppClick('vscode')} />
+                        <AppIcon name="Photos" icon="/apps/photos.png" onClick={() => handleAppClick('photos')} />
+                        <AppIcon name="Contacts" icon="/apps/contacts.png" onClick={() => handleAppClick('contacts')} />
+                        <AppIcon name="Calendar" icon="/apps/calendar.png" onClick={() => handleAppClick('calendar')} />
+                        <AppIcon name="Notes" icon="/apps/notes.png" onClick={() => handleAppClick('notes')} />
+                        <AppIcon name="Feedback" icon="/apps/feedback.png" onClick={() => handleAppClick('feedback')} />
+                        <AppIcon name="System Preferences" icon="/apps/system preferences.png" onClick={() => handleAppClick('sysPref')} />
                     </div>
                 );
             case 'Desktop':
@@ -135,7 +125,7 @@ const SidebarBtn = ({ name, icon, active, onClick }: { name: string, icon: strin
     </button>
 );
 
-const AppIcon = ({ id, name, icon, onClick }: { id: string, name: string, icon: string, onClick: () => void }) => (
+const AppIcon = ({ name, icon, onClick }: { name: string, icon: string, onClick: () => void }) => (
     <div onDoubleClick={onClick} className="flex flex-col items-center gap-1 group outline-none cursor-default py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 disabled:opacity-50 transition-colors">
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={icon} alt={name} className="w-14 h-14 object-contain drop-shadow-md pointer-events-none" onError={(e) => e.currentTarget.style.display = 'none'} />

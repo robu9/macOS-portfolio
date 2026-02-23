@@ -1,5 +1,5 @@
 'use client';
-import React, { useRef } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { useStore, AppId } from '../store/useStore';
 import { Safari } from './apps/Safari';
@@ -12,14 +12,34 @@ import { Calendar } from './apps/Calendar';
 import { Messages } from './apps/Messages';
 import { SystemPreferences } from './apps/SystemPreferences';
 import { Feedback } from './apps/Feedback';
+import { Photos } from './apps/Photos';
+import { Maps } from './apps/Maps';
+import { Contacts } from './apps/Contacts';
+import { Notes } from './apps/Notes';
 
 export const WindowManager = () => {
     const { apps } = useStore();
+    const implementedApps: AppId[] = [
+        'finder',
+        'safari',
+        'vscode',
+        'spotify',
+        'photos',
+        'maps',
+        'contacts',
+        'notes',
+        'calendar',
+        'terminal',
+        'messages',
+        'feedback',
+        'about',
+        'sysPref',
+    ];
 
     return (
         <>
             {apps.map(app => {
-                if (!app.isOpen) return null;
+                if (!app.isOpen || app.isPan) return null;
 
                 return (
                     <WindowContainer key={app.id} id={app.id}>
@@ -28,13 +48,17 @@ export const WindowManager = () => {
                         {app.id === 'vscode' && <VSCode />}
                         {app.id === 'terminal' && <Terminal />}
                         {app.id === 'spotify' && <Spotify />}
+                        {app.id === 'photos' && <Photos />}
+                        {app.id === 'maps' && <Maps />}
+                        {app.id === 'contacts' && <Contacts />}
+                        {app.id === 'notes' && <Notes />}
                         {app.id === 'finder' && <Finder />}
                         {app.id === 'about' && <AboutMe />}
                         {app.id === 'calendar' && <Calendar />}
                         {app.id === 'messages' && <Messages />}
                         {app.id === 'sysPref' && <SystemPreferences />}
                         {app.id === 'feedback' && <Feedback />}
-                        {app.id !== 'safari' && app.id !== 'vscode' && app.id !== 'terminal' && app.id !== 'spotify' && app.id !== 'finder' && app.id !== 'about' && app.id !== 'calendar' && app.id !== 'messages' && app.id !== 'sysPref' && app.id !== 'feedback' && (
+                        {!implementedApps.includes(app.id) && (
                             <div className="flex h-full w-full items-center justify-center p-4 bg-white/50">
                                 <span className="text-xl text-black">App Implementation Pending for {app.id}</span>
                             </div>
@@ -49,7 +73,6 @@ export const WindowManager = () => {
 const WindowContainer = ({ id, children }: { id: AppId, children: React.ReactNode }) => {
     const { apps, onTop, bringToTop, toggleApp, closeApp } = useStore();
     const app = apps.find(a => a.id === id);
-    const dragConstraintsRef = useRef(null);
 
     if (!app) return null;
 
