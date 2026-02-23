@@ -1,8 +1,9 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowUpRight, Bot, Github, Globe, Zap } from 'lucide-react';
+import { useStore, AboutSection } from '../../store/useStore';
 
-type Section = 'About' | 'Skills' | 'Projects' | 'Resume';
+type Section = AboutSection;
 type SkillCategory = { name: string; skills: string[] };
 type Project = {
     icon: React.ReactNode;
@@ -62,7 +63,17 @@ const projects: Project[] = [
 ];
 
 export const AboutMe = () => {
-    const [active, setActive] = useState<Section>('About');
+    const { aboutSection, setAboutSection } = useStore();
+    const [active, setActive] = useState<Section>(aboutSection);
+
+    useEffect(() => {
+        setActive(aboutSection);
+    }, [aboutSection]);
+
+    const handleSectionChange = (section: Section) => {
+        setActive(section);
+        setAboutSection(section);
+    };
 
     const renderContent = () => {
         switch (active) {
@@ -79,8 +90,8 @@ export const AboutMe = () => {
                                     onError={(e) => (e.currentTarget.style.display = 'none')}
                                 />
                                 <div>
-                                    <h1 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">Robu, 20</h1>
-                                    <p className="mt-1 text-sm font-medium text-gray-600 dark:text-gray-300">Engineer</p>
+                                    <h1 className="text-2xl font-semibold tracking-tight text-gray-900 dark:text-gray-100">Robu</h1>
+                        <p className="mt-1 text-sm font-medium text-gray-600 dark:text-gray-300">20, Engineer</p>
                                     <p className="mt-2 text-sm leading-relaxed text-gray-600 dark:text-gray-400">
                                         I build practical AI products and polished interfaces with a strong focus on clarity,
                                         performance, and real world usability.
@@ -178,7 +189,7 @@ export const AboutMe = () => {
                             name={section.name}
                             icon={section.icon}
                             active={active === section.name}
-                            onClick={() => setActive(section.name)}
+                            onClick={() => handleSectionChange(section.name)}
                         />
                     ))}
                 </ul>

@@ -31,6 +31,8 @@ export interface Notification {
   head: string;
 }
 
+export type AboutSection = 'About' | 'Skills' | 'Projects' | 'Resume';
+
 interface MacState {
   // DataBus equivalents
   onTop: string;
@@ -46,6 +48,7 @@ interface MacState {
   notification: Notification;
   wallpaper: string; // Store asset path or key
   darkTheme: boolean;
+  aboutSection: AboutSection;
 
   // OnOff equivalents (Globals)
   ccOpen: boolean;
@@ -87,6 +90,7 @@ interface MacState {
   toggleSpotlight: () => void;
   offSpotlight: () => void;
   setActiveMenu: (menu: string) => void;
+  setAboutSection: (section: AboutSection) => void;
 
   openApp: (id: AppId) => void;
   closeApp: (id: AppId) => void;
@@ -151,6 +155,7 @@ export const useStore = create<MacState>((set, get) => ({
   },
   wallpaper: 'monterey',
   darkTheme: false,
+  aboutSection: 'About',
   ccOpen: false,
   fsAni: false,
   rightClickMenu: false,
@@ -193,6 +198,7 @@ export const useStore = create<MacState>((set, get) => ({
   toggleSpotlight: () => set((state) => ({ spotlightOpen: !state.spotlightOpen })),
   offSpotlight: () => set({ spotlightOpen: false }),
   setActiveMenu: (menu) => set({ activeMenu: menu }),
+  setAboutSection: (section) => set({ aboutSection: section }),
 
   openApp: (id) => set((state) => {
     const isActive = state.activeApps.includes(id);

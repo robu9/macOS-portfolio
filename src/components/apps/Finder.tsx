@@ -1,16 +1,22 @@
 'use client';
 import React, { useState } from 'react';
-import { useStore, AppId } from '../../store/useStore';
+import { useStore, AppId, AboutSection } from '../../store/useStore';
 import { ChevronLeft, ChevronRight, LayoutGrid, List, Search } from 'lucide-react';
+import { PHOTO_ASSETS } from '../../data/photoAssets';
 
 type SidebarItem = 'Applications' | 'Desktop' | 'Documents' | 'Downloads' | 'Movies' | 'Music' | 'Pictures';
 
 export const Finder = () => {
     const [selected, setSelected] = useState<SidebarItem>('Applications');
-    const { openApp } = useStore();
+    const { openApp, setAboutSection } = useStore();
 
     const handleAppClick = (id: AppId) => {
         openApp(id);
+    };
+
+    const openAboutSection = (section: AboutSection) => {
+        setAboutSection(section);
+        openApp('about');
     };
 
     const renderContent = () => {
@@ -33,34 +39,52 @@ export const Finder = () => {
                         <AppIcon name="System Preferences" icon="/apps/system preferences.png" onClick={() => handleAppClick('sysPref')} />
                     </div>
                 );
-            case 'Desktop':
-                return (
-                    <div className="p-8 grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-y-10 gap-x-4">
-                        {/* Could add hardcoded desktop folders here */}
-                        <div className="flex flex-col items-center gap-1 cursor-default">
-                            {/* eslint-disable-next-line @next/next/no-img-element */}
-                            <img src="/icons/folder.png" alt="folder" className="w-16 h-16 drop-shadow-md" />
-                            <span className="text-sm bg-blue-500 text-white px-2 rounded-sm line-clamp-1">Developer</span>
-                        </div>
-                    </div>
-                );
+            // case 'Desktop':
+            //     return (
+            //         <div className="p-8 grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-y-10 gap-x-4">
+            //             {/* Could add hardcoded desktop folders here */}
+            //             <div className="flex flex-col items-center gap-1 cursor-default">
+            //                 {/* eslint-disable-next-line @next/next/no-img-element */}
+            //                 <img src="/icons/folder.png" alt="folder" className="w-16 h-16 drop-shadow-md" />
+            //                 <span className="text-sm bg-blue-500 text-white px-2 rounded-sm line-clamp-1">Developer</span>
+            //             </div>
+            //         </div>
+            //     );
             case 'Documents':
                 return (
                     <div className="p-8 grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-y-10 gap-x-4">
-                        <FileIcon name="Resume.pdf" />
-                        <FileIcon name="Project Plan.pdf" />
-                        <FolderIcon name="Projects" />
-                        <FolderIcon name="Interests" />
-                        <FolderIcon name="Languages" />
+                        <FileIcon name="Resume.pdf" onDoubleClick={() => openAboutSection('Resume')} />
+                        {/* <FileIcon name="Project Plan.pdf" /> */}
+                        <FolderIcon name="Projects" onDoubleClick={() => openAboutSection('Projects')} />
+                        {/* <FolderIcon name="Interests" />
+                        <FolderIcon name="Languages" /> */}
                     </div>
                 );
             case 'Downloads':
                 return (
                     <div className="p-8 grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-y-10 gap-x-4">
-                        <FileIcon name="Dream.zip" isZip />
-                        <FileIcon name="Flutter Talks.pdf" />
+                        <FileIcon name="Dream.zip" />
+                        <FileIcon name=".env" />
                     </div>
-                )
+                );
+            case 'Music':
+                return (
+                    <div className="p-8 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-y-10 gap-x-4">
+                        <MusicTrackIcon
+                            name="Close Eyes.mp3"
+                            artist="DVRST"
+                            onClick={() => handleAppClick('spotify')}
+                        />
+                    </div>
+                );
+            case 'Pictures':
+                return (
+                    <div className="p-8 grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-y-10 gap-x-4">
+                        {PHOTO_ASSETS.map((asset) => (
+                            <ImageIcon key={asset.id} name={asset.title} src={asset.src} onDoubleClick={() => handleAppClick('photos')} />
+                        ))}
+                    </div>
+                );
             default:
                 return <div className="p-8 text-gray-400">Content for {selected}</div>;
         }
@@ -133,19 +157,56 @@ const AppIcon = ({ name, icon, onClick }: { name: string, icon: string, onClick:
     </div>
 );
 
-const FileIcon = ({ name, isZip }: { name: string, isZip?: boolean }) => (
-    <div className="flex flex-col items-center gap-1 group outline-none cursor-default py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+const getFileTypeLabel = (name: string) => {
+    if (name.startsWith('.')) return name.slice(1, 4).toUpperCase();
+    const dotIndex = name.lastIndexOf('.');
+    if (dotIndex === -1) return 'FILE';
+    const ext = name.slice(dotIndex + 1).toUpperCase();
+    return ext.slice(0, 4);
+};
+
+const FileIcon = ({ name, onDoubleClick }: { name: string, onDoubleClick?: () => void }) => (
+    <div
+        onDoubleClick={onDoubleClick}
+        className={`flex flex-col items-center gap-1 group outline-none py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors ${onDoubleClick ? 'cursor-pointer' : 'cursor-default'}`}
+    >
         <div className="w-14 h-14 bg-white border border-gray-200 shadow-sm flex items-center justify-center rounded-sm">
-            <span className="text-[10px] font-bold text-gray-400">{isZip ? 'ZIP' : 'PDF'}</span>
+            <span className="text-[10px] font-bold text-gray-400">{getFileTypeLabel(name)}</span>
         </div>
         <span className="text-[11px] text-gray-800 dark:text-gray-200 text-center leading-tight truncate w-full px-1">{name}</span>
     </div>
 );
 
-const FolderIcon = ({ name }: { name: string }) => (
-    <div className="flex flex-col items-center gap-1 group outline-none cursor-default py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors">
+const FolderIcon = ({ name, onDoubleClick }: { name: string, onDoubleClick?: () => void }) => (
+    <div
+        onDoubleClick={onDoubleClick}
+        className={`flex flex-col items-center gap-1 group outline-none py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors ${onDoubleClick ? 'cursor-pointer' : 'cursor-default'}`}
+    >
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src="/icons/folder.png" alt="folder" className="w-14 h-14 drop-shadow-md" onError={(e) => e.currentTarget.style.display = 'none'} />
         <span className="text-[11px] text-gray-800 dark:text-gray-200 text-center leading-tight truncate w-full px-1">{name}</span>
     </div>
+);
+
+const ImageIcon = ({ name, src, onDoubleClick }: { name: string, src: string, onDoubleClick?: () => void }) => (
+    <div
+        onDoubleClick={onDoubleClick}
+        className={`flex flex-col items-center gap-1 group outline-none py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors ${onDoubleClick ? 'cursor-pointer' : 'cursor-default'}`}
+    >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src={src} alt={name} className="w-14 h-14 object-cover rounded-md shadow-sm" onError={(e) => e.currentTarget.style.display = 'none'} />
+        <span className="text-[11px] text-gray-800 dark:text-gray-200 text-center leading-tight truncate w-full px-1">{name}</span>
+    </div>
+);
+
+const MusicTrackIcon = ({ name, artist, onClick }: { name: string, artist: string, onClick: () => void }) => (
+    <button
+        onClick={onClick}
+        className="flex flex-col items-center gap-1 group outline-none cursor-pointer py-2 rounded-lg hover:bg-black/5 dark:hover:bg-white/5 transition-colors"
+    >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="/apps/spotify.png" alt={name} className="w-14 h-14 object-contain drop-shadow-md" />
+        <span className="text-[11px] text-gray-800 dark:text-gray-200 text-center leading-tight truncate w-full px-1">{name}</span>
+        <span className="text-[10px] text-gray-500 dark:text-gray-400">{artist}</span>
+    </button>
 );
