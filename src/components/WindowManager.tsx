@@ -86,7 +86,7 @@ const WindowContainer = ({ id, children }: { id: AppId, children: React.ReactNod
     return (
         <motion.div
             drag={!isFS}
-            dragConstraints={{ left: 0, top: 25, right: typeof window !== 'undefined' ? window.innerWidth - 100 : 1000, bottom: typeof window !== 'undefined' ? window.innerHeight - 100 : 800 }}
+            dragConstraints={{ left: 0, top: -25, right: typeof window !== 'undefined' ? window.innerWidth - 100 : 1000, bottom: typeof window !== 'undefined' ? window.innerHeight - 100 : 800 }}
             dragMomentum={false}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{

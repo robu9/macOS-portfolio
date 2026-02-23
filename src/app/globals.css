@@ -18,3 +18,52 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+html {
+  color-scheme: light;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+* {
+  scrollbar-width: thin;
+}
+
+html:not(.dark) * {
+  scrollbar-color: rgba(107, 114, 128, 0.55) transparent;
+}
+
+html.dark * {
+  scrollbar-color: rgba(226, 232, 240, 0.35) rgba(255, 255, 255, 0.05);
+}
+
+*::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+html.dark *::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 9999px;
+}
+
+html:not(.dark) *::-webkit-scrollbar-thumb {
+  background: rgba(107, 114, 128, 0.55);
+}
+
+html.dark *::-webkit-scrollbar-thumb {
+  background: rgba(226, 232, 240, 0.35);
+}
+
+html.dark *::-webkit-scrollbar-thumb:hover {
+  background: rgba(226, 232, 240, 0.5);
+}

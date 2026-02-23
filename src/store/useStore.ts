@@ -154,7 +154,7 @@ export const useStore = create<MacState>((set, get) => ({
     head: "Welcome"
   },
   wallpaper: 'monterey',
-  darkTheme: false,
+  darkTheme: true,
   aboutSection: 'About',
   ccOpen: false,
   fsAni: false,
