@@ -1,12 +1,12 @@
 'use client';
 import React, { useRef } from 'react';
 import { motion, useMotionValue, useSpring, useTransform, type MotionValue } from 'framer-motion';
-import { Coffee } from 'lucide-react';
+import { Coffee, Github } from 'lucide-react';
 import { useStore, AppId } from '../store/useStore';
 import { CalendarIcon } from './CalendarIcon';
 
 interface DockItem {
-    id: AppId | 'launchpad';
+    id: AppId | 'launchpad' | 'github';
     name: string;
     icon: string;
 }
@@ -26,10 +26,11 @@ const DOCK_ITEMS: DockItem[] = [
     { id: 'notes', name: 'Notes', icon: '/apps/notes.png' },
     { id: 'feedback', name: 'Feedback', icon: '/apps/feedback.png' },
     { id: 'sysPref', name: 'System Preferences', icon: '/apps/system preferences.png' },
+    { id: 'github', name: 'GitHub', icon: '' },
     { id: 'buymeacoffee', name: 'Buy Me a Coffee', icon: '/apps/itunes.png' },
 ];
 
-const isAppItem = (id: DockItem['id']): id is AppId => id !== 'launchpad';
+const isAppItem = (id: DockItem['id']): id is AppId => id !== 'launchpad' && id !== 'github';
 
 export const Dock = () => {
     const mouseX = useMotionValue(Infinity);
@@ -38,6 +39,8 @@ export const Dock = () => {
     const handleAppClick = (item: DockItem) => {
         if (item.id === 'launchpad') {
             toggleLaunchPad();
+        } else if (item.id === 'github') {
+            window.open('https://github.com/robu9', '_blank');
         } else {
             openApp(item.id);
         }
@@ -86,6 +89,12 @@ const DockIcon = ({ item, mouseX, isActive, onClick }: { item: DockItem, mouseX:
             >
                 {item.id === 'calendar' ? (
                     <CalendarIcon className="w-full h-full" />
+                ) : item.id === 'github' ? (
+                    <div className="w-full h-full flex items-center justify-center">
+                        <div className="w-[86%] h-[86%] rounded-[22%] bg-[#24292e] border border-black/10 flex items-center justify-center shadow-sm">
+                            <Github className="w-[54%] h-[54%] text-white" />
+                        </div>
+                    </div>
                 ) : item.id === 'buymeacoffee' ? (
                     <div className="w-full h-full flex items-center justify-center">
                         <div className="w-[86%] h-[86%] rounded-[22%] bg-[#ffdd00] border border-black/10 flex items-center justify-center shadow-sm">

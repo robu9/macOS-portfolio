@@ -100,7 +100,7 @@ interface MacState {
 }
 
 const initialApps: AppState[] = [
-  { id: 'finder', isOpen: true, isMax: false, isFS: false, isPan: false },
+  { id: 'finder', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'safari', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'vscode', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'photos', isOpen: false, isMax: false, isFS: false, isPan: false },
@@ -112,7 +112,7 @@ const initialApps: AppState[] = [
   { id: 'terminal', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'messages', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'feedback', isOpen: false, isMax: false, isFS: false, isPan: false },
-  { id: 'about', isOpen: false, isMax: false, isFS: false, isPan: false },
+  { id: 'about', isOpen: true, isMax: false, isFS: false, isPan: false },
   { id: 'sysPref', isOpen: false, isMax: false, isFS: false, isPan: false },
 ];
 
@@ -137,7 +137,7 @@ const getAppTitle = (id: AppId) => {
 };
 
 export const useStore = create<MacState>((set, get) => ({
-  onTop: "Finder",
+  onTop: "About Me",
   fs: "",
   brightness: 95.98,
   volume: 80,
@@ -154,7 +154,7 @@ export const useStore = create<MacState>((set, get) => ({
     head: "Welcome"
   },
   wallpaper: 'monterey',
-  darkTheme: true,
+  darkTheme: false,
   aboutSection: 'About',
   ccOpen: false,
   fsAni: false,
@@ -165,7 +165,7 @@ export const useStore = create<MacState>((set, get) => ({
   spotlightOpen: false,
   activeMenu: '',
   apps: initialApps,
-  activeApps: ['finder'],
+  activeApps: ['about'],
 
   setBrightness: (val) => set({ brightness: val }),
   setVolume: (val) => set({ volume: val }),

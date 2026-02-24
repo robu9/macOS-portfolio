@@ -1,6 +1,6 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { ArrowUpRight, Bot, Github, Globe, Mail, Monitor, Zap } from 'lucide-react';
+import { ArrowUpRight, Bot, FileText, FolderKanban, Github, Globe, Mail, Monitor, User, Wrench, Zap } from 'lucide-react';
 import { useStore, AboutSection } from '../../store/useStore';
 
 type Section = AboutSection;
@@ -13,11 +13,11 @@ type Project = {
     stack: string[];
 };
 
-const sections: { name: Section; icon: string }[] = [
-    { name: 'About', icon: '/icons/sidebar/about.png' },
-    { name: 'Skills', icon: '/icons/sidebar/skills.png' },
-    { name: 'Projects', icon: '/icons/sidebar/projects.png' },
-    { name: 'Resume', icon: '/icons/sidebar/resume.png' },
+const sections: { name: Section; icon: React.ReactNode }[] = [
+    { name: 'About', icon: <User size={16} /> },
+    { name: 'Skills', icon: <Wrench size={16} /> },
+    { name: 'Projects', icon: <FolderKanban size={16} /> },
+    { name: 'Resume', icon: <FileText size={16} /> },
 ];
 
 const skillCategories: SkillCategory[] = [
@@ -148,16 +148,16 @@ export const AboutMe = () => {
                         </section>
 
                         <div className="grid gap-3 sm:grid-cols-2">
-                        {projects.map((project) => (
-                            <ProjectRow
-                                key={project.name}
-                                icon={project.icon}
-                                name={project.name}
-                                link={project.link}
-                                desc={project.desc}
-                                stack={project.stack}
-                            />
-                        ))}
+                            {projects.map((project) => (
+                                <ProjectRow
+                                    key={project.name}
+                                    icon={project.icon}
+                                    name={project.name}
+                                    link={project.link}
+                                    desc={project.desc}
+                                    stack={project.stack}
+                                />
+                            ))}
                         </div>
                     </div>
                 );
@@ -265,29 +265,19 @@ const ProjectRow = ({ icon, name, link, desc, stack }: { icon: React.ReactNode, 
     </div>
 );
 
-const SidebarLink = ({ name, icon, active, onClick }: { name: string, icon: string, active: boolean, onClick: () => void }) => (
+const SidebarLink = ({ name, icon, active, onClick }: { name: string, icon: React.ReactNode, active: boolean, onClick: () => void }) => (
     <li>
         <button
             onClick={onClick}
-            className={`w-full rounded-md px-3 py-1.5 text-[13px] outline-none transition-colors ${
-                active
+            className={`w-full rounded-md px-3 py-1.5 text-[13px] outline-none transition-colors ${active
                     ? 'bg-blue-500 text-white shadow-sm'
                     : 'text-gray-700 hover:bg-black/5 dark:text-gray-300 dark:hover:bg-white/10'
-            }`}
+                }`}
         >
             <span className="flex items-center gap-3">
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img
-                    src={icon}
-                    alt=""
-                    className="h-[18px] w-[18px] object-contain"
-                    onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        const span = e.currentTarget.parentElement?.querySelector('.fallback-icon');
-                        if (span) span.classList.remove('hidden');
-                    }}
-                />
-                <span className="fallback-icon hidden h-2 w-2 rounded-full bg-current opacity-50" />
+                <span className="h-[18px] w-[18px] flex items-center justify-center">
+                    {icon}
+                </span>
                 <span className="truncate">{name}</span>
             </span>
         </button>
