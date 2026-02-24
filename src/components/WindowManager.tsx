@@ -101,8 +101,8 @@ const WindowContainer = ({ id, children }: { id: AppId, children: React.ReactNod
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
             style={{
                 position: 'absolute',
-                top: isFS ? 0 : 100, // Initial offset if not full screen (Framer motion drag will override x/y via transform)
-                left: isFS ? 0 : 100,
+                top: isFS ? 0 : 60,
+                left: isFS ? 0 : (typeof window !== 'undefined' ? (window.innerWidth - standardWidth) / 2 : 250),
                 zIndex: isFocused ? 40 : 30
             }}
             className="rounded-xl overflow-hidden shadow-2xl border border-white/20 dark:border-white/10 bg-white/90 dark:bg-[#232327]/90 backdrop-blur-md flex flex-col"
