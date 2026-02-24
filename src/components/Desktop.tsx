@@ -7,7 +7,6 @@ import { Launchpad } from './Launchpad';
 import { ControlCenter } from './ControlCenter';
 import { Spotlight } from './Spotlight';
 import { MenuDropdown } from './MenuDropdown';
-import { RotateDevice } from './RotateDevice';
 
 export const Desktop = ({ children }: { children?: React.ReactNode }) => {
     const { brightness, darkTheme } = useStore();
@@ -65,9 +64,6 @@ export const Desktop = ({ children }: { children?: React.ReactNode }) => {
                 className="absolute inset-0 pointer-events-none z-[100] bg-black"
                 style={{ opacity: 1 - (brightness / 100) }}
             />
-
-            {/* Rotate Device Overlay for Mobile/Tablet Portrait */}
-            <RotateDevice />
         </div>
     );
 };
