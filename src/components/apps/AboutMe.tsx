@@ -1,12 +1,11 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import { ArrowUpRight, Bot, FileText, FolderKanban, Github, Globe, Mail, Monitor, User, Wrench, Zap } from 'lucide-react';
+import { ArrowUpRight, FileText, FolderKanban, Github, Mail, User, Wrench } from 'lucide-react';
 import { useStore, AboutSection } from '../../store/useStore';
 
 type Section = AboutSection;
 type SkillCategory = { name: string; skills: string[] };
 type Project = {
-    icon: React.ReactNode;
     name: string;
     link?: string;
     desc: string;
@@ -32,39 +31,29 @@ const skillCategories: SkillCategory[] = [
 
 const projects: Project[] = [
     {
-        icon: <Zap size={20} />,
         name: 'Paxio - Autonomous AI Workspace',
         link: 'https://paxio.tech',
         desc: 'Memory-aware AI execution with real-time collaboration built on Next.js, WebSockets, and LLMs.',
         stack: ['Next.js', 'WebSockets', 'LLMs'],
     },
     {
-        icon: <Globe size={20} />,
         name: 'AI-powered OSINT Platform',
         desc: 'Automated intelligence workflows with NLP-driven entity extraction and source analysis.',
         stack: ['Python', 'NLP', 'Entity Extraction'],
     },
     {
-        icon: <Monitor size={20} />,
         name: 'macOS Styled Portfolio',
         link: 'https://robuworks.vercel.app',
         desc: 'A desktop-grade portfolio experience inspired by macOS interactions and visual language.',
         stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
     },
     {
-        icon: <Bot size={20} />,
         name: 'Auto ML Platform',
         desc: 'An end-to-end AutoML workflow that automates preprocessing, model selection, tuning, and evaluation from one place.',
         stack: ['Python', 'Scikit-learn', 'Optuna', 'FastAPI'],
     },
-    // {
-    //     icon: <Layers size={20} />,
-    //     name: 'Real-time Object Detection Structure',
-    //     link: 'https://github.com/robu9/yolov8',
-    //     desc: 'YOLOv8-based detection pipeline paired with LLM context for fast and reliable inference.',
-    //     stack: ['YOLOv8', 'Computer Vision', 'LLM'],
-    // },
 ];
+
 
 export const AboutMe = () => {
     const { aboutSection, setAboutSection } = useStore();
@@ -140,25 +129,26 @@ export const AboutMe = () => {
             case 'Projects':
                 return (
                     <div className="mx-auto w-full max-w-4xl space-y-4">
-                        <section className="rounded-2xl border border-black/10 bg-white/80 p-5 shadow-sm dark:border-white/10 dark:bg-[#2b2b2d]/80">
-                            <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">Featured Projects</h3>
-                            <p className="mt-1 text-[13px] text-gray-600 dark:text-gray-400">
-                                Production-focused work across ML systems, AI tooling, and full-stack product delivery.
-                            </p>
-                        </section>
+                        <section className="rounded-2xl border border-black/10 bg-white/75 p-5 shadow-sm dark:border-white/10 dark:bg-[#2b2b2d]/80">
+                            <div className="mb-5 pb-4 border-b border-black/10 dark:border-white/10">
+                                <h3 className="text-sm font-semibold text-gray-900 dark:text-gray-100">Featured Projects</h3>
+                                <p className="mt-1 text-[13px] text-gray-600 dark:text-gray-400">
+                                    Production-focused work across ML systems, AI tooling, and full-stack product delivery.
+                                </p>
+                            </div>
 
-                        <div className="grid gap-3 sm:grid-cols-2">
-                            {projects.map((project) => (
-                                <ProjectRow
-                                    key={project.name}
-                                    icon={project.icon}
-                                    name={project.name}
-                                    link={project.link}
-                                    desc={project.desc}
-                                    stack={project.stack}
-                                />
-                            ))}
-                        </div>
+                            <div className="flex flex-col gap-5">
+                                {projects.map((project) => (
+                                    <ProjectRow
+                                        key={project.name}
+                                        name={project.name}
+                                        link={project.link}
+                                        desc={project.desc}
+                                        stack={project.stack}
+                                    />
+                                ))}
+                            </div>
+                        </section>
                     </div>
                 );
             case 'Resume':
@@ -232,35 +222,28 @@ export const AboutMe = () => {
     );
 };
 
-const ProjectRow = ({ icon, name, link, desc, stack }: { icon: React.ReactNode, name: string, link?: string, desc: string, stack: string[] }) => (
-    <div
-        className="group flex h-full flex-col rounded-xl border border-black/10 bg-white/80 p-4 transition-colors hover:bg-black/[0.02] dark:border-white/10 dark:bg-[#2b2b2d]/80 dark:hover:bg-[#303033]"
-    >
-        <div className="flex items-start gap-3">
-            <span className="mt-0.5 flex h-8 w-8 items-center justify-center text-gray-600 dark:text-gray-300">
-                {icon}
-            </span>
-            <div>
-                <h4 className="text-sm font-semibold text-gray-900 dark:text-gray-100">{name}</h4>
-                <p className="mt-1 text-[13px] leading-relaxed text-gray-600 dark:text-gray-400">{desc}</p>
-            </div>
-        </div>
-        <div className="mt-3 flex flex-wrap gap-1.5">
-            {stack.map((item) => (
-                <span
-                    key={item}
-                    className="rounded-full border border-black/10 bg-white/90 px-2.5 py-1 text-[11px] font-medium text-gray-600 dark:border-white/10 dark:bg-[#202022] dark:text-gray-300"
-                >
-                    {item}
-                </span>
-            ))}
-        </div>
-        <div className="mt-auto pt-3 text-xs font-medium text-gray-500 dark:text-gray-400">
+const ProjectRow = ({ name, link, desc, stack }: { name: string, link?: string, desc: string, stack: string[] }) => (
+    <div className="flex flex-col">
+        <h4 className="text-[13px] font-semibold text-gray-900 dark:text-gray-100">
             {link ? (
-                <a href={link} target="_blank" rel="noreferrer" className="hover:text-blue-500 transition-colors">
-                    Open Project <ArrowUpRight size={12} className="ml-1 inline" />
+                <a href={link} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-1 hover:text-blue-500 transition-colors">
+                    {name}
+                    <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
                 </a>
-            ) : null}
+            ) : (
+                name
+            )}
+        </h4>
+        <p className="mt-1 text-[13px] leading-relaxed text-gray-600 dark:text-gray-400">
+            {desc}
+        </p>
+        <div className="mt-3 flex flex-wrap gap-2 text-[11px] font-medium text-gray-500 dark:text-gray-400">
+            {stack.map((item, idx) => (
+                <React.Fragment key={item}>
+                    <span>{item}</span>
+                    {idx < stack.length - 1 && <span className="opacity-50">•</span>}
+                </React.Fragment>
+            ))}
         </div>
     </div>
 );
@@ -270,8 +253,8 @@ const SidebarLink = ({ name, icon, active, onClick }: { name: string, icon: Reac
         <button
             onClick={onClick}
             className={`w-full rounded-md px-3 py-1.5 text-[13px] outline-none transition-colors ${active
-                    ? 'bg-blue-500 text-white shadow-sm'
-                    : 'text-gray-700 hover:bg-black/5 dark:text-gray-300 dark:hover:bg-white/10'
+                ? 'bg-blue-500 text-white shadow-sm'
+                : 'text-gray-700 hover:bg-black/5 dark:text-gray-300 dark:hover:bg-white/10'
                 }`}
         >
             <span className="flex items-center gap-3">
