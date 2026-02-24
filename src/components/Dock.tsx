@@ -90,15 +90,15 @@ const DockIcon = ({ item, mouseX, isActive, onClick }: { item: DockItem, mouseX:
                 {item.id === 'calendar' ? (
                     <CalendarIcon className="w-full h-full" />
                 ) : item.id === 'github' ? (
-                    <div className="w-full h-full flex items-center justify-center">
-                        <div className="w-[86%] h-[86%] rounded-[22%] bg-[#24292e] border border-black/10 flex items-center justify-center shadow-sm">
-                            <Github className="w-[54%] h-[54%] text-white" />
+                    <div className="w-full aspect-square p-[7%]">
+                        <div className="w-full h-full rounded-[22%] bg-[#24292e] flex items-center justify-center shadow-md">
+                            <Github className="w-[50%] h-[50%] text-white" />
                         </div>
                     </div>
                 ) : item.id === 'buymeacoffee' ? (
-                    <div className="w-full h-full flex items-center justify-center">
-                        <div className="w-[86%] h-[86%] rounded-[22%] bg-[#ffdd00] border border-black/10 flex items-center justify-center shadow-sm">
-                            <Coffee className="w-[54%] h-[54%] text-[#2f2a1f]" />
+                    <div className="w-full aspect-square p-[7%]">
+                        <div className="w-full h-full rounded-[22%] bg-[#ffdd00] flex items-center justify-center shadow-md">
+                            <Coffee className="w-[50%] h-[50%] text-[#2f2a1f]" />
                         </div>
                     </div>
                 ) : (
