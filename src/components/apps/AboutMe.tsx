@@ -33,7 +33,7 @@ const projects: Project[] = [
     {
         name: 'Paxio - Autonomous AI Workspace',
         link: 'https://paxio.tech',
-        desc: 'Connect your tools, doomscroll the entire internet, order e-commerce, and control it all via voice built on Next.js, WebSockets, and AI agents.',
+        desc: 'Connect your tools, doomscroll the entire internet, order e-commerce, and control it all via voice built on Next.js, WebSockets.',
         stack: ['AI Agents', 'WebSockets', 'Voice', 'Browser Control'],
     },
     {
