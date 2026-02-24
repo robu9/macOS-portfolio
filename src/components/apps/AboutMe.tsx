@@ -33,19 +33,19 @@ const projects: Project[] = [
     {
         name: 'Paxio - Autonomous AI Workspace',
         link: 'https://paxio.tech',
-        desc: 'Memory-aware AI execution with real-time collaboration built on Next.js, WebSockets, and LLMs.',
-        stack: ['Next.js', 'WebSockets', 'LLMs'],
+        desc: 'Connect your tools, doomscroll the entire internet, order e-commerce, and control it all via voice built on Next.js, WebSockets, and AI agents.',
+        stack: ['AI Agents', 'WebSockets', 'Voice', 'Browser Control'],
     },
     {
         name: 'AI-powered OSINT Platform',
-        desc: 'Automated intelligence workflows with NLP-driven entity extraction and source analysis.',
-        stack: ['Python', 'NLP', 'Entity Extraction'],
+        desc: 'Search about anyone to get detailed AI summaries and sentiment analysis alongside automated intelligence workflows.',
+        stack: ['Python', 'NLP', 'Sentiment Analysis', 'Entity Extraction'],
     },
     {
         name: 'macOS Styled Portfolio',
         link: 'https://robuworks.vercel.app',
-        desc: 'A desktop-grade portfolio experience inspired by macOS interactions and visual language.',
-        stack: ['Next.js', 'TypeScript', 'Tailwind CSS'],
+        desc: 'A pixel-perfect macOS portfolio experience with working apps and authentic window management.',
+        stack: ['Next.js', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
     },
     {
         name: 'Auto ML Platform',
@@ -137,15 +137,16 @@ export const AboutMe = () => {
                                 </p>
                             </div>
 
-                            <div className="flex flex-col gap-5">
+                            <div className="flex flex-col gap-4">
                                 {projects.map((project) => (
-                                    <ProjectRow
-                                        key={project.name}
-                                        name={project.name}
-                                        link={project.link}
-                                        desc={project.desc}
-                                        stack={project.stack}
-                                    />
+                                    <div key={project.name} className="rounded-2xl border border-black/10 bg-white/75 p-4 dark:border-white/10 dark:bg-[#2b2b2d]/80 transition-colors hover:bg-black/[0.02] dark:hover:bg-[#303033]">
+                                        <ProjectRow
+                                            name={project.name}
+                                            link={project.link}
+                                            desc={project.desc}
+                                            stack={project.stack}
+                                        />
+                                    </div>
                                 ))}
                             </div>
                         </section>
@@ -224,23 +225,23 @@ export const AboutMe = () => {
 
 const ProjectRow = ({ name, link, desc, stack }: { name: string, link?: string, desc: string, stack: string[] }) => (
     <div className="flex flex-col">
-        <h4 className="text-[13px] font-semibold text-gray-900 dark:text-gray-100">
-            {link ? (
-                <a href={link} target="_blank" rel="noreferrer" className="group inline-flex items-center gap-1 hover:text-blue-500 transition-colors">
-                    {name}
-                    <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity" />
+        <div className="flex items-center justify-between">
+            <h4 className="text-[13px] font-semibold text-gray-900 dark:text-gray-100">
+                {name}
+            </h4>
+            {link && (
+                <a href={link} target="_blank" rel="noreferrer" className="flex items-center justify-center p-1.5 rounded-full bg-black/5 dark:bg-white/10 hover:bg-black/10 dark:hover:bg-white/20 transition-colors text-gray-600 dark:text-gray-300" title="View Project">
+                    <ArrowUpRight size={14} />
                 </a>
-            ) : (
-                name
             )}
-        </h4>
-        <p className="mt-1 text-[13px] leading-relaxed text-gray-600 dark:text-gray-400">
+        </div>
+        <p className="mt-2 text-[13px] leading-relaxed text-gray-600 dark:text-gray-400">
             {desc}
         </p>
         <div className="mt-3 flex flex-wrap gap-2 text-[11px] font-medium text-gray-500 dark:text-gray-400">
             {stack.map((item, idx) => (
                 <React.Fragment key={item}>
-                    <span>{item}</span>
+                    <span className="cursor-default rounded-md px-1.5 py-0.5 transition-colors hover:bg-black/[0.03] hover:text-gray-700 dark:hover:bg-white/10 dark:hover:text-gray-200">{item}</span>
                     {idx < stack.length - 1 && <span className="opacity-50">•</span>}
                 </React.Fragment>
             ))}
@@ -274,7 +275,7 @@ const CategoryBlock = ({ category }: { category: SkillCategory }) => (
             {category.skills.map((skill) => (
                 <span
                     key={skill}
-                    className="rounded-full border border-black/10 bg-white/90 px-3 py-1 text-xs font-medium text-gray-700 dark:border-white/10 dark:bg-[#202022] dark:text-gray-300"
+                    className="cursor-default rounded-full border border-black/10 bg-white/90 px-3 py-1 text-xs font-medium text-gray-700 transition-colors hover:bg-black/[0.03] hover:text-gray-900 dark:border-white/10 dark:bg-[#202022] dark:text-gray-300 dark:hover:bg-white/10 dark:hover:text-gray-100"
                 >
                     {skill}
                 </span>
