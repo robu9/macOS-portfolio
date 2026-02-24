@@ -83,10 +83,27 @@ const WindowContainer = ({ id, children }: { id: AppId, children: React.ReactNod
     const standardWidth = 800;
     const standardHeight = 500;
 
+    const initialTop = 60;
+    const initialLeft = typeof window !== 'undefined' ? (window.innerWidth - standardWidth) / 2 : 250;
+
+    const paddingTop = 16;
+    const paddingBottom = 100;
+    const paddingLeft = 16;
+    const paddingRight = 16;
+
+    const menuBarHeight = 25;
+
+    const dragConstraints = typeof window !== 'undefined' ? {
+        top: menuBarHeight - initialTop + paddingTop,
+        left: -initialLeft + paddingLeft,
+        right: window.innerWidth - standardWidth - initialLeft - paddingRight,
+        bottom: window.innerHeight - standardHeight - initialTop - paddingBottom
+    } : { top: 0, left: 0, right: 0, bottom: 0 };
+
     return (
         <motion.div
             drag={!isFS}
-            dragConstraints={{ left: 0, top: -25, right: typeof window !== 'undefined' ? window.innerWidth - 100 : 1000, bottom: typeof window !== 'undefined' ? window.innerHeight - 100 : 800 }}
+            dragConstraints={dragConstraints}
             dragMomentum={false}
             initial={{ scale: 0.8, opacity: 0 }}
             animate={{
@@ -101,8 +118,8 @@ const WindowContainer = ({ id, children }: { id: AppId, children: React.ReactNod
             transition={{ type: "spring", stiffness: 300, damping: 25 }}
             style={{
                 position: 'absolute',
-                top: isFS ? 0 : 60,
-                left: isFS ? 0 : (typeof window !== 'undefined' ? (window.innerWidth - standardWidth) / 2 : 250),
+                top: isFS ? 0 : initialTop,
+                left: isFS ? 0 : initialLeft,
                 zIndex: isFocused ? 40 : 30
             }}
             className="rounded-xl overflow-hidden shadow-2xl border border-white/20 dark:border-white/10 bg-white/90 dark:bg-[#232327]/90 backdrop-blur-md flex flex-col"
