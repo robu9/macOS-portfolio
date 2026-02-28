@@ -26,6 +26,7 @@ const LAUNCHPAD_APPS: LaunchpadItem[] = [
     { id: 'feedback', name: 'Feedback', icon: '/apps/feedback.png' },
     { id: 'sysPref', name: 'System Preferences', icon: '/apps/system preferences.png' },
     { id: 'buymeacoffee', name: 'Buy Me a Coffee', icon: '/apps/itunes.png' },
+    { id: 'spotify', name: 'Spotify', icon: '/apps/spotify.png' },
 ];
 
 export const Launchpad = () => {
