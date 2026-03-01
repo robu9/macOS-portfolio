@@ -2,10 +2,16 @@
 
 A pixel-perfect, highly realistic macOS-style interactive portfolio built with Next.js, React, Tailwind CSS, and Framer Motion. 
 
+![macOS Portfolio Screenshot](./public/screenshot.png)
+
 ## Features
 
 - **macOS Experience:** Accurately recreated desktop environment with functional Dock, Menu Bar, and Window Management system.
-- **Interactive Applications:** Functional apps including Terminal, Safari, VS Code, Spotify, Settings, Messages, and more.
+- **Interactive Applications:** Deep integration of functional apps including:
+  - **Built-in Apps:** Safari, Messages, Maps, Photos, Contacts, Calendar, Notes
+  - **Utilities:** Terminal, Visual Studio Code (VS Code)
+  - **System:** System Preferences, Finder (with interactive sidebar and file browsing)
+  - **Custom Portfolio Additions:** About Me, Feedback, Buy Me a Coffee, GitHub integrations
 - **Window Management:** Drag, minimize, maximize, and close windows just like in macOS. Includes window stacking and realistic snapping constraints.
 - **Spotlight Search:** Quick functional search utility to navigate and find information across the portfolio.
 - **Control Center & Themes:** Quick settings panel to toggle between Light and Dark mode, and adjust preferences.
