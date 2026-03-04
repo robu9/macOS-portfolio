@@ -26,7 +26,7 @@ const DOCK_ITEMS: DockItem[] = [
     { id: 'notes', name: 'Notes', icon: '/apps/notes.png' },
     { id: 'feedback', name: 'Feedback', icon: '/apps/feedback.png' },
     { id: 'sysPref', name: 'System Preferences', icon: '/apps/system preferences.png' },
-    // { id: 'spotify', name: 'Spotify', icon: '/apps/spotify.png' }, // Temporarily disabled
+    { id: 'spotify', name: 'Spotify', icon: '/apps/spotify.png' },
     { id: 'github', name: 'GitHub', icon: '' },
     { id: 'buymeacoffee', name: 'Buy Me a Coffee', icon: '/apps/itunes.png' },
 ];

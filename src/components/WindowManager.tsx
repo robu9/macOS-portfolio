@@ -16,7 +16,7 @@ import { Maps } from './apps/Maps';
 import { Contacts } from './apps/Contacts';
 import { Notes } from './apps/Notes';
 import { BuyMeCoffee } from './apps/BuyMeCoffee';
-// import { Spotify } from './apps/Spotify'; // Temporarily disabled
+import { Spotify } from './apps/Spotify';
 
 export const WindowManager = () => {
     const { apps } = useStore();
@@ -35,7 +35,7 @@ export const WindowManager = () => {
         'feedback',
         'about',
         'sysPref',
-        // 'spotify', // Temporarily disabled
+        'spotify',
     ];
 
     return (
@@ -60,7 +60,7 @@ export const WindowManager = () => {
                         {app.id === 'messages' && <Messages />}
                         {app.id === 'sysPref' && <SystemPreferences />}
                         {app.id === 'feedback' && <Feedback />}
-                        {/* {app.id === 'spotify' && <Spotify />} // Temporarily disabled */}
+                        {app.id === 'spotify' && <Spotify />}
                         {!implementedApps.includes(app.id) && (
                             <div className="flex h-full w-full items-center justify-center p-4 bg-white/50">
                                 <span className="text-xl text-black">App Implementation Pending for {app.id}</span>

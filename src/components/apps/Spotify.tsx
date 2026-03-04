@@ -63,6 +63,43 @@ export const Spotify = () => {
 
     const progressPercent = duration > 0 ? (position / duration) * 100 : 0;
 
+    const handleSeek = (e: React.MouseEvent<HTMLDivElement>) => {
+        if (!embedControllerRef.current || duration === 0) return;
+        
+        const rect = e.currentTarget.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const percent = Math.max(0, Math.min(1, clickX / rect.width));
+        const newPositionMs = percent * duration;
+        
+        embedControllerRef.current.seek(newPositionMs / 1000);
+        setPosition(newPositionMs);
+    };
+
+    const [volume, setVolume] = useState(70);
+    const handleVolume = (e: React.MouseEvent<HTMLDivElement>) => {
+        const rect = e.currentTarget.getBoundingClientRect();
+        const clickX = e.clientX - rect.left;
+        const percent = Math.max(0, Math.min(1, clickX / rect.width));
+        setVolume(percent * 100);
+    };
+
+    const handleSkipBack = () => {
+        if (embedControllerRef.current) {
+            embedControllerRef.current.seek(0);
+            setPosition(0);
+        }
+    };
+
+    const handleSkipForward = () => {
+        if (embedControllerRef.current) {
+            embedControllerRef.current.seek(0);
+            setPosition(0);
+        }
+    };
+
+    const [isShuffle, setIsShuffle] = useState(false);
+    const [isRepeat, setIsRepeat] = useState(false);
+
     return (
         <div className="flex flex-col h-full bg-[#121212] text-white font-sans overflow-hidden select-none">
             {/* Hidden actual Spotify Player */}
@@ -75,7 +112,7 @@ export const Spotify = () => {
                 <div className="w-60 bg-black flex flex-col hidden md:flex">
                     <div className="p-6">
                         <div className="text-2xl font-bold flex items-center gap-2 mb-8">
-                            <div className="w-8 h-8 rounded-full flex items-center justify-center bg-white text-black pl-0.5">
+                            <div className="w-8 h-8 rounded-full flex items-center justify-center bg-white text-black">
                                 <svg viewBox="0 0 24 24" fill="currentColor" className="w-6 h-6"><path d="M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm4.586 14.424c-.18.295-.563.387-.857.207-2.35-1.434-5.305-1.76-8.786-.964-.328.075-.658-.13-.733-.457-.075-.328.13-.658.457-.733 3.816-.87 7.076-.496 9.712 1.115.293.18.386.563.207.857zm1.143-2.553c-.227.368-.7.485-1.066.26-2.686-1.65-6.8-2.146-9.965-1.176-.406.126-.826-.102-.952-.51-.125-.406.102-.826.51-.952 3.636-1.115 8.156-.554 11.214 1.325.366.226.485.698.26 1.065zm.114-2.7c-3.21-1.905-8.51-2.08-11.58-1.15-.465.14-1-.122-1.144-.587-.14-.466.122-1 .587-1.145 3.51-1.065 9.355-.863 13.064 1.34.42.247.568.82.32 1.24-.246.42-.82.568-1.24.32z" /></svg>
                             </div>
                             Spotify
@@ -128,7 +165,7 @@ export const Spotify = () => {
                             <span className="text-xs md:text-sm font-bold uppercase tracking-wider">Song</span>
                             <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter cursor-default">Close Eyes</h1>
                             <div className="flex items-center gap-1.5 md:gap-2 text-xs md:text-sm mt-1 md:mt-2 font-semibold flex-wrap">
-                                <img src="https://images.unsplash.com/photo-1493225457124-a1a2a5f5f9af?w=100&h=100&fit=crop" className="w-6 h-6 rounded-full" alt="Artist" />
+                                <img src="/DVRST.png" className="w-6 h-6 rounded-full" alt="Artist" />
                                 <span className="hover:underline cursor-pointer">DVRST</span>
                                 <span className="text-gray-300 text-[10px]">•</span>
                                 <span className="text-gray-300">2021</span>
@@ -196,22 +233,31 @@ export const Spotify = () => {
                 {/* Center: Controls */}
                 <div className="flex flex-col items-center justify-center w-[40%] max-w-[722px] gap-2">
                     <div className="flex items-center gap-4 md:gap-6">
-                        <Shuffle className="w-4 h-4 text-gray-400 hover:text-white transition-colors cursor-pointer hidden md:block" />
-                        <SkipBack className="w-5 h-5 text-gray-400 hover:text-white transition-colors cursor-pointer" fill="currentColor" />
+                        <Shuffle
+                            className={`w-4 h-4 transition-colors cursor-pointer hidden md:block ${isShuffle ? 'text-[#1ed760]' : 'text-gray-400 hover:text-white'}`}
+                            onClick={() => setIsShuffle(!isShuffle)}
+                        />
+                        <SkipBack className="w-5 h-5 text-gray-400 hover:text-white transition-colors cursor-pointer" fill="currentColor" onClick={handleSkipBack} />
                         <button
                             onClick={togglePlay}
                             className="w-8 h-8 rounded-full bg-white flex items-center justify-center hover:scale-105 transition-transform"
                         >
                             {isPlaying ? <Pause className="w-4 h-4 text-black" fill="black" /> : <Play className="w-4 h-4 ml-0.5 text-black" fill="black" />}
                         </button>
-                        <SkipForward className="w-5 h-5 text-gray-400 hover:text-white transition-colors cursor-pointer" fill="currentColor" />
-                        <Repeat className="w-4 h-4 text-gray-400 hover:text-white transition-colors cursor-pointer hidden md:block" />
+                        <SkipForward className="w-5 h-5 text-gray-400 hover:text-white transition-colors cursor-pointer" fill="currentColor" onClick={handleSkipForward} />
+                        <Repeat
+                            className={`w-4 h-4 transition-colors cursor-pointer hidden md:block ${isRepeat ? 'text-[#1ed760]' : 'text-gray-400 hover:text-white'}`}
+                            onClick={() => setIsRepeat(!isRepeat)}
+                        />
                     </div>
                     <div className="w-full flex items-center gap-2 text-xs text-gray-400 font-mono">
                         <span className="min-w-[40px] text-right">{formatTime(position)}</span>
-                        <div className="h-1 flex-1 bg-[#4d4d4d] rounded-full overflow-hidden group cursor-pointer relative flex items-center">
+                        <div 
+                            className="h-1 flex-1 bg-[#4d4d4d] rounded-full overflow-hidden group cursor-pointer relative flex items-center"
+                            onClick={handleSeek}
+                        >
                             <div className="h-full bg-white group-hover:bg-[#1ed760] rounded-full transition-all duration-300 ease-linear" style={{ width: `${progressPercent}%` }}></div>
-                            <div className="absolute w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 shadow" style={{ left: `calc(${progressPercent}% - 6px)` }}></div>
+                            <div className="absolute w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 shadow pointer-events-none" style={{ left: `calc(${progressPercent}% - 6px)` }}></div>
                         </div>
                         <span className="min-w-[40px]">{formatTime(duration)}</span>
                     </div>
@@ -222,11 +268,11 @@ export const Spotify = () => {
                     <Mic2 className="w-4 h-4 hover:text-white transition-colors cursor-pointer hidden lg:block" />
                     <ListMusic className="w-4 h-4 hover:text-white transition-colors cursor-pointer hidden lg:block" />
                     <MonitorSpeaker className="w-4 h-4 hover:text-white transition-colors cursor-pointer hidden sm:block" />
-                    <div className="flex items-center gap-2 w-20 md:w-24 group cursor-pointer">
+                    <div className="flex items-center gap-2 w-20 md:w-24 group cursor-pointer" onClick={handleVolume}>
                         <Volume2 className="w-4 h-4 hover:text-white transition-colors" />
                         <div className="h-1 flex-1 bg-[#4d4d4d] rounded-full overflow-hidden relative flex items-center">
-                            <div className="h-full bg-white group-hover:bg-[#1ed760] rounded-full w-[70%]"></div>
-                            <div className="absolute w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 shadow" style={{ left: `calc(70% - 6px)` }}></div>
+                            <div className="h-full bg-white group-hover:bg-[#1ed760] rounded-full transition-all duration-100 ease-linear" style={{ width: `${volume}%` }}></div>
+                            <div className="absolute w-3 h-3 bg-white rounded-full opacity-0 group-hover:opacity-100 shadow pointer-events-none" style={{ left: `calc(${volume}% - 6px)` }}></div>
                         </div>
                     </div>
                     <Maximize2 className="w-4 h-4 hover:text-white transition-colors cursor-pointer hidden md:block" />
