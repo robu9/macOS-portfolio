@@ -1,6 +1,6 @@
 # Robu's macOS Portfolio
 
-A pixel-perfect, highly realistic macOS-style interactive portfolio built with Next.js, React, Tailwind CSS, and Framer Motion. 
+A pixel-perfect, highly realistic macOS-style interactive portfolio built with Next.js, React, Tailwind CSS, and Framer Motion.
 
 ![macOS Portfolio Screenshot](./public/screenshot.png)
 
@@ -11,10 +11,10 @@ A pixel-perfect, highly realistic macOS-style interactive portfolio built with N
   - **Built-in Apps:** Safari, Messages, Maps, Photos, Contacts, Calendar, Notes
   - **Utilities:** Terminal, Visual Studio Code (VS Code)
   - **System:** System Preferences, Finder (with interactive sidebar and file browsing)
-  - **Custom Portfolio Additions:** About Me, Feedback, Buy Me a Coffee, GitHub integrations
+  - **Custom Portfolio Additions:** About Me, Feedback, Buy Me a Coffee, GitHub integrations, Spotify Player
 - **Window Management:** Drag, minimize, maximize, and close windows just like in macOS. Includes window stacking and realistic snapping constraints.
 - **Spotlight Search:** Quick functional search utility to navigate and find information across the portfolio.
-- **Control Center & Themes:** Quick settings panel to toggle between Light and Dark mode, and adjust preferences.
+- **Control Center & Themes:** Quick settings panel to toggle between multiple customized themes (Light, Dark, and colorful variants) and adjust preferences.
 - **Fluid Animations:** Smooth, buttery animations powered by Framer Motion mimicking native macOS behaviors.
 
 ## Tech Stack
