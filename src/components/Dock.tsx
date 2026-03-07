@@ -23,6 +23,7 @@ const DOCK_ITEMS: DockItem[] = [
     { id: 'vscode', name: 'Visual Studio Code', icon: '/apps/visual studio code.png' },
     { id: 'photos', name: 'Photos', icon: '/apps/photos.png' },
     { id: 'calendar', name: 'Calendar', icon: '/apps/calendar.png' },
+    { id: 'calculator', name: 'Calculator', icon: '/apps/calculator.png' },
     { id: 'notes', name: 'Notes', icon: '/apps/notes.png' },
     { id: 'feedback', name: 'Feedback', icon: '/apps/feedback.png' },
     { id: 'sysPref', name: 'System Preferences', icon: '/apps/system preferences.png' },

@@ -17,6 +17,7 @@ import { Contacts } from './apps/Contacts';
 import { Notes } from './apps/Notes';
 import { BuyMeCoffee } from './apps/BuyMeCoffee';
 import { Spotify } from './apps/Spotify';
+import { Calculator } from './apps/Calculator';
 
 export const WindowManager = () => {
     const { apps } = useStore();
@@ -36,6 +37,7 @@ export const WindowManager = () => {
         'about',
         'sysPref',
         'spotify',
+        'calculator',
     ];
 
     return (
@@ -61,6 +63,7 @@ export const WindowManager = () => {
                         {app.id === 'sysPref' && <SystemPreferences />}
                         {app.id === 'feedback' && <Feedback />}
                         {app.id === 'spotify' && <Spotify />}
+                        {app.id === 'calculator' && <Calculator />}
                         {!implementedApps.includes(app.id) && (
                             <div className="flex h-full w-full items-center justify-center p-4 bg-white/50">
                                 <span className="text-xl text-black">App Implementation Pending for {app.id}</span>
@@ -83,8 +86,15 @@ const WindowContainer = ({ id, children }: { id: AppId, children: React.ReactNod
 
     // Calculate dynamic dimensions based on fullscreen state
     const isFS = app.isFS;
-    const standardWidth = 800;
-    const standardHeight = 500;
+    
+    // Dynamic dimensions based on app and fullscreen state
+    let standardWidth = 800;
+    let standardHeight = 500;
+    
+    if (id === 'calculator') {
+        standardWidth = 320;
+        standardHeight = 480;
+    }
 
     const initialTop = 60;
     const initialLeft = typeof window !== 'undefined' ? (window.innerWidth - standardWidth) / 2 : 250;

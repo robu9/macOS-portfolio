@@ -15,6 +15,7 @@ export type AppId =
   | 'contacts'
   | 'notes'
   | 'buymeacoffee'
+  | 'calculator'
   | 'spotify';
 
 export interface AppState {
@@ -115,6 +116,7 @@ const initialApps: AppState[] = [
   { id: 'feedback', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'about', isOpen: true, isMax: false, isFS: false, isPan: false },
   { id: 'sysPref', isOpen: false, isMax: false, isFS: false, isPan: false },
+  { id: 'calculator', isOpen: false, isMax: false, isFS: false, isPan: false },
   { id: 'spotify', isOpen: false, isMax: false, isFS: false, isPan: false },
 ];
 
@@ -134,6 +136,7 @@ const getAppTitle = (id: AppId) => {
     feedback: "Feedback",
     about: "About Me",
     sysPref: "System Preferences",
+    calculator: "Calculator",
     spotify: "Spotify"
   };
   return map[id];

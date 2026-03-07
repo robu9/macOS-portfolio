@@ -22,6 +22,7 @@ const LAUNCHPAD_APPS: LaunchpadItem[] = [
     { id: 'photos', name: 'Photos', icon: '/apps/photos.png' },
     { id: 'contacts', name: 'Contacts', icon: '/apps/contacts.png' },
     { id: 'calendar', name: 'Calendar', icon: '/apps/calendar.png' },
+    { id: 'calculator', name: 'Calculator', icon: '/apps/calculator.png' },
     { id: 'notes', name: 'Notes', icon: '/apps/notes.png' },
     { id: 'feedback', name: 'Feedback', icon: '/apps/feedback.png' },
     { id: 'sysPref', name: 'System Preferences', icon: '/apps/system preferences.png' },
