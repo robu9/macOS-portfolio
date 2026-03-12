@@ -1,7 +1,7 @@
 'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
-import { useStore, AppId } from '../store/useStore';
+import { useStore, AppId, getAppTitle } from '../store/useStore';
 import { Safari } from './apps/Safari';
 import { VSCode } from './apps/VSCode';
 import { Terminal } from './apps/Terminal';
@@ -77,12 +77,15 @@ export const WindowManager = () => {
 };
 
 const WindowContainer = ({ id, children }: { id: AppId, children: React.ReactNode }) => {
-    const { apps, onTop, bringToTop, toggleApp, closeApp } = useStore();
+    const { apps, activeApps, onTop, bringToTop, toggleApp, closeApp } = useStore();
     const app = apps.find(a => a.id === id);
 
     if (!app) return null;
 
-    const isFocused = onTop.toLowerCase().replace(" ", "") === id.replace(" ", "").toLowerCase();
+    const isFocused = onTop === getAppTitle(id);
+    const stackIndex = activeApps.indexOf(id);
+    const baseZIndex = 30 + (stackIndex >= 0 ? stackIndex : 0);
+    const zIndex = isFocused ? baseZIndex + 100 : baseZIndex;
 
     // Calculate dynamic dimensions based on fullscreen state
     const isFS = app.isFS;
@@ -133,7 +136,7 @@ const WindowContainer = ({ id, children }: { id: AppId, children: React.ReactNod
                 position: 'absolute',
                 top: isFS ? 0 : initialTop,
                 left: isFS ? 0 : initialLeft,
-                zIndex: isFocused ? 40 : 30
+                zIndex
             }}
             className="rounded-xl overflow-hidden shadow-2xl border border-white/20 dark:border-white/10 bg-white/90 dark:bg-[#232327]/90 backdrop-blur-md flex flex-col"
             onMouseDown={() => bringToTop(id)}

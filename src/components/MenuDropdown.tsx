@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useStore } from '../store/useStore';
 
 export const MenuDropdown = () => {
@@ -40,11 +40,16 @@ export const MenuDropdown = () => {
                 window.location.reload();
                 break;
             case 'Close Window':
-                // Close the top-most active app
+                // Close the top-most visible app window
                 const state = useStore.getState();
-                if (state.activeApps.length > 0) {
-                    const topApp = state.activeApps[state.activeApps.length - 1];
-                    state.closeApp(topApp);
+                const topVisibleApp = [...state.activeApps]
+                    .reverse()
+                    .find((appId) => {
+                        const app = state.apps.find((candidate) => candidate.id === appId);
+                        return app?.isOpen && !app.isPan;
+                    });
+                if (topVisibleApp) {
+                    state.closeApp(topVisibleApp);
                 }
                 break;
             default:

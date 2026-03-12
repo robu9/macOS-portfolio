@@ -120,7 +120,7 @@ const initialApps: AppState[] = [
   { id: 'spotify', isOpen: false, isMax: false, isFS: false, isPan: false },
 ];
 
-const getAppTitle = (id: AppId) => {
+export const getAppTitle = (id: AppId) => {
   const map: Record<AppId, string> = {
     finder: "Finder",
     safari: "Safari",
@@ -142,7 +142,18 @@ const getAppTitle = (id: AppId) => {
   return map[id];
 };
 
-export const useStore = create<MacState>((set, get) => ({
+const getTopVisibleAppId = (activeApps: AppId[], apps: AppState[]): AppId | null => {
+  for (let i = activeApps.length - 1; i >= 0; i--) {
+    const appId = activeApps[i];
+    const appState = apps.find((app) => app.id === appId);
+    if (appState?.isOpen && !appState.isPan) {
+      return appId;
+    }
+  }
+  return null;
+};
+
+export const useStore = create<MacState>((set) => ({
   onTop: "About Me",
   fs: "",
   brightness: 95.98,
@@ -207,20 +218,25 @@ export const useStore = create<MacState>((set, get) => ({
   setAboutSection: (section) => set({ aboutSection: section }),
 
   openApp: (id) => set((state) => {
-    const isActive = state.activeApps.includes(id);
+    const activeApps = [...state.activeApps.filter((appId) => appId !== id), id];
+    const apps = state.apps.map(app => app.id === id ? { ...app, isOpen: true, isMax: false, isPan: false } : app);
+
     return {
-      activeApps: isActive ? state.activeApps : [...state.activeApps, id],
-      apps: state.apps.map(app => app.id === id ? { ...app, isOpen: true, isMax: false, isPan: false } : app),
+      activeApps,
+      apps,
       onTop: getAppTitle(id)
     };
   }),
 
   closeApp: (id) => set((state) => {
-    const newActiveApps = state.activeApps.filter(a => a !== id);
+    const activeApps = state.activeApps.filter((appId) => appId !== id);
+    const apps = state.apps.map(app => app.id === id ? { ...app, isOpen: false, isFS: false, isMax: false, isPan: false } : app);
+    const nextTopVisibleAppId = getTopVisibleAppId(activeApps, apps);
+
     return {
-      activeApps: newActiveApps,
-      apps: state.apps.map(app => app.id === id ? { ...app, isOpen: false, isFS: false, isMax: false, isPan: false } : app),
-      onTop: newActiveApps.length > 0 ? getAppTitle(newActiveApps[newActiveApps.length - 1]) : "Finder",
+      activeApps,
+      apps,
+      onTop: nextTopVisibleAppId ? getAppTitle(nextTopVisibleAppId) : "Finder",
       ...(state.fs === getAppTitle(id) ? { fs: "" } : {})
     };
   }),
@@ -231,14 +247,50 @@ export const useStore = create<MacState>((set, get) => ({
     activeApps: [...state.activeApps.filter(a => a !== id), id]
   })),
 
-  toggleApp: (id, property) => set((state) => ({
-    apps: state.apps.map(app => app.id === id ? { ...app, [property]: !app[property] } : app),
-    ...(property === 'isFS' ? { fs: state.apps.find(a => a.id === id)?.[property] ? "" : getAppTitle(id) } : {})
-  })),
+  toggleApp: (id, property) => set((state) => {
+    const currentApp = state.apps.find((app) => app.id === id);
+    if (!currentApp) return {};
 
-  setAppProperty: (id, property, value) => set((state) => ({
-    apps: state.apps.map(app => app.id === id ? { ...app, [property]: value } : app),
-    ...(property === 'isFS' && value ? { fs: getAppTitle(id) } : property === 'isFS' && !value ? { fs: "" } : {})
-  })),
+    const nextValue = !currentApp[property];
+    const apps = state.apps.map(app => app.id === id ? { ...app, [property]: nextValue } : app);
+    const updates: Partial<MacState> = { apps };
+
+    if (property === 'isFS') {
+      updates.fs = currentApp.isFS ? "" : getAppTitle(id);
+    }
+
+    if (property === 'isPan') {
+      if (nextValue) {
+        const nextTopVisibleAppId = getTopVisibleAppId(state.activeApps, apps);
+        updates.onTop = nextTopVisibleAppId ? getAppTitle(nextTopVisibleAppId) : "Finder";
+      } else {
+        updates.activeApps = [...state.activeApps.filter((appId) => appId !== id), id];
+        updates.onTop = getAppTitle(id);
+      }
+    }
+
+    return updates;
+  }),
+
+  setAppProperty: (id, property, value) => set((state) => {
+    const apps = state.apps.map(app => app.id === id ? { ...app, [property]: value } : app);
+    const updates: Partial<MacState> = { apps };
+
+    if (property === 'isFS') {
+      updates.fs = value ? getAppTitle(id) : "";
+    }
+
+    if (property === 'isPan') {
+      if (value) {
+        const nextTopVisibleAppId = getTopVisibleAppId(state.activeApps, apps);
+        updates.onTop = nextTopVisibleAppId ? getAppTitle(nextTopVisibleAppId) : "Finder";
+      } else {
+        updates.activeApps = [...state.activeApps.filter((appId) => appId !== id), id];
+        updates.onTop = getAppTitle(id);
+      }
+    }
+
+    return updates;
+  }),
 
 }));
