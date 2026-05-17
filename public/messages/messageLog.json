@@ -1,0 +1,133 @@
+[
+  {
+    "messages": {
+      "sender": [
+        "Hey Robu, I reviewed your portfolio update.",
+        "The macOS interactions feel clean and professional.",
+        "Are you handling this as a full stack project now?",
+        "Great. Did you add API validation and request limits?",
+        "I also saw your AI and ML section draft.",
+        "Can you include one deployed model pipeline example?"
+      ],
+      "me": [
+        "Thanks Priya.",
+        "",
+        "Yes, frontend is Next.js and backend APIs are Node with PostgreSQL.",
+        "Yes, using schema validation and rate limiting at the API layer.",
+        "I am revising that section to focus on production AI use cases.",
+        "Yes, I will show data prep, training, evaluation, and deployment."
+      ]
+    },
+    "senderName": "Priya Menon",
+    "senderPhoto": "",
+    "profileLink": "https://www.linkedin.com/",
+    "dates": [
+      "2026-02-10 09:40:00.000",
+      "2026-02-12 18:25:00.000"
+    ],
+    "dateStops": [
+      0,
+      4
+    ]
+  },
+  {
+    "messages": {
+      "sender": [
+        "Hi Robu, the backend architecture notes were strong.",
+        "I liked your service split for auth, portfolio, and analytics.",
+        "Are you using Redis for cache and async jobs?",
+        "Please add one note on observability too."
+      ],
+      "me": [
+        "Thanks Rahul.",
+        "I designed it to keep scaling simple.",
+        "Yes, Redis handles cache plus queue workers for background tasks.",
+        "Good point. I will include logging, traces, and alerting."
+      ]
+    },
+    "senderName": "Rahul Nair",
+    "senderPhoto": "",
+    "profileLink": "https://www.linkedin.com/",
+    "dates": [
+      "2026-01-27 11:12:00.000"
+    ],
+    "dateStops": [
+      0
+    ]
+  },
+  {
+    "messages": {
+      "sender": [
+        "Your AIML roadmap looked practical.",
+        "I liked the idea of using vector search with retrieval.",
+        "Can you compare classical ML and LLM based solutions in one project writeup?",
+        "That would help recruiters understand your decision process."
+      ],
+      "me": [
+        "Thanks Aisha.",
+        "I am testing retrieval quality with hybrid search.",
+        "Yes, I will add metrics, latency, and cost tradeoffs in the writeup.",
+        "Exactly. I want the projects to show engineering reasoning, not just demos."
+      ]
+    },
+    "senderName": "Aisha Khan",
+    "senderPhoto": "",
+    "profileLink": "https://www.linkedin.com/",
+    "dates": [
+      "2026-02-02 14:05:00.000",
+      "2026-02-03 09:31:00.000"
+    ],
+    "dateStops": [
+      0,
+      2
+    ]
+  },
+  {
+    "messages": {
+      "sender": [
+        "Morning Robu. How is the MLOps workflow going?",
+        "Did you finish CI checks for model drift alerts?",
+        "Also add automated rollback if quality drops under threshold."
+      ],
+      "me": [
+        "Morning Elena.",
+        "Yes, drift checks run nightly with scheduled retraining triggers.",
+        "Rollback automation is next, I am wiring it with deployment health gates."
+      ]
+    },
+    "senderName": "Elena Thomas",
+    "senderPhoto": "",
+    "profileLink": "https://www.linkedin.com/",
+    "dates": [
+      "2026-02-14 08:15:00.000"
+    ],
+    "dateStops": [
+      0
+    ]
+  },
+  {
+    "messages": {
+      "sender": [
+        "Hey, saw your new project notes.",
+        "The full stack section now reads much stronger than before.",
+        "I like that you mention SQL tuning, indexing, and API contracts.",
+        "The AI section is good too, especially model evaluation details."
+      ],
+      "me": [
+        "Thanks Arun.",
+        "I wanted the portfolio to represent real engineering work.",
+        "Exactly, I am showing backend depth and production tradeoffs.",
+        "Great. I will add one more NLP case study this week."
+      ]
+    },
+    "senderName": "Arun Alex",
+    "senderPhoto": "",
+    "profileLink": "https://www.linkedin.com/",
+    "dates": [
+      "2026-02-18 19:20:00.000"
+    ],
+    "dateStops": [
+      0
+    ]
+  }
+]
