@@ -23,7 +23,7 @@ const skillCategories: SkillCategory[] = [
     { name: 'Languages', skills: ['Python', 'C', 'C++', 'JavaScript', 'TypeScript'] },
     { name: 'AI & Machine Learning', skills: ['Scikit-learn', 'TensorFlow', 'PyTorch', 'Keras', 'YOLOv8', 'Hugging Face', 'NLP', 'Computer Vision'] },
     { name: 'Data Science', skills: ['NumPy', 'Pandas', 'Matplotlib', 'Seaborn'] },
-    { name: 'Frameworks & Libraries', skills: ['LangChain', 'React', 'Next.js', 'Express.js', 'Flask', 'Tailwind CSS', 'Shadcn UI', 'Redux'] },
+    { name: 'Frameworks & Libraries', skills: ['LangChain', 'React', 'Next.js', 'Express.js', 'Electron', 'Flask', 'Tailwind CSS', 'Shadcn UI', 'Redux'] },
     { name: 'Backend & APIs', skills: ['REST APIs', 'WebSockets', 'Socket.io', 'GraphQL'] },
     { name: 'Databases & ORMs', skills: ['MongoDB', 'PostgreSQL', 'Mongoose', 'Prisma'] },
     { name: 'Developer Tools', skills: ['Git', 'GitHub', 'Postman', 'Jupyter', 'VS Code', 'Figma', 'Streamlit', 'Docker'] },
